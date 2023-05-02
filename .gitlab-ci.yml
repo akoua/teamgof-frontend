@@ -7,7 +7,6 @@ before_script:
   - npm install --global vercel
 
 production:
-  type: deploy
   stage: production
   script:
     - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
