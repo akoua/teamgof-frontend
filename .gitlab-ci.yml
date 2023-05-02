@@ -1,5 +1,5 @@
 default:
-  image: node:latest
+  image: node:current-alpine3.16
 
 deploy_production:
   stage: deploy
