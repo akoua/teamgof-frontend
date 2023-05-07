@@ -1,7 +1,7 @@
 <template>
-  <main>
-    <h1>Let's Go TEAMGOF 🔥</h1>
-  </main>
+  <TheHeroSection />
+  <TheAboutSection />
+  <TheTeamShowcaseSection />
 </template>
 
 <script setup lang="ts">
@@ -10,13 +10,4 @@ useHead({
 });
 </script>
 
-<style scoped>
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #f1f1f1;
-  font-weight: bold;
-  height: 100vh;
-}
-</style>
+<style scoped></style>
