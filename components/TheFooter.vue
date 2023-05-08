@@ -1,9 +1,9 @@
 <template>
   <footer
-    class="footer footer-center px-4 py-12 bg-secondary text-[#F5F5F5] text-base-content md:px-20"
+    class="footer footer-center px-4 py-12 bg-secondary text-[#F5F5F5] md:px-20"
   >
     <div>
-      <p>Tous droits réservés © TEAMGOF | {{ `2023/${year}` }}</p>
+      <p>Tous droits réservés © TEAMGOF | {{ `2023-${year}` }}</p>
     </div>
   </footer>
 </template>
