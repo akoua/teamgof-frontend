@@ -1,9 +1,9 @@
 <template>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure>
+  <VCard>
+    <template v-slot:card-image>
       <img :src="team.imageUrl" :alt="`${team.title}-image`" />
-    </figure>
-    <div class="card-body">
+    </template>
+    <template v-slot:card-body>
       <div>
         <Icon name="fe:medal" />
         <span class="text-sm ml-1">{{ team.level }}</span>
@@ -18,23 +18,16 @@
           }}</span>
         </span>
       </div>
-
       <p>{{ team.description }}</p>
-      <div class="card-actions justify-end">
-        <button class="btn btn-link">Rejoindre l’équipe</button>
-      </div>
-    </div>
-  </div>
+    </template>
+    <template v-slot:card-button>
+      <button class="btn btn-link">Rejoindre l’équipe</button>
+    </template>
+  </VCard>
 </template>
 
 <script lang="ts">
-interface Team {
-  title: string;
-  level: string;
-  imageUrl: string;
-  description: string;
-  memberCount: number;
-}
+import Team from "~/models/team.model";
 
 import { defineComponent } from "vue";
 

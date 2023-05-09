@@ -12,13 +12,6 @@
 </template>
 
 <script lang="ts">
-interface Team {
-  title: string;
-  level: string;
-  imageUrl: string;
-  description: string;
-  memberCount: number;
-}
 import { defineComponent } from "vue";
 
 export default defineComponent({
