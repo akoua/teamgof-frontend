@@ -1,5 +1,8 @@
 <template>
-  <div class="card w-full bg-base-100 shadow-xl">
+  <div
+    class="card bg-base-100 shadow-xl"
+    :class="width ? `w-${width}` : 'w-full'"
+  >
     <figure>
       <slot name="card-image"></slot>
     </figure>
@@ -11,3 +14,18 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  setup() {
+    return {};
+  },
+  props: {
+    width: {
+      type: Number,
+    },
+  },
+});
+</script>
