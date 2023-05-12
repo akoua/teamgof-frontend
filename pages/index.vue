@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 useHead({
-  title: "Accueil - TEAMGOF",
+  title: "Home",
 });
 </script>
 
