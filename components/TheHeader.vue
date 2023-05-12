@@ -24,13 +24,13 @@
             class="menu menu-compact dropdown-content mt-3 shadow bg-base-100 rounded-box w-52"
           >
             <li class="font-bold uppercase">
-              <NuxtLink to="/teams">Equipes</NuxtLink>
+              <NuxtLink to="/teams">équipes</NuxtLink>
             </li>
             <li class="font-bold uppercase">
-              <NuxtLink to="/sign-up">Inscription</NuxtLink>
+              <NuxtLink to="/sign-up">inscription</NuxtLink>
             </li>
             <li class="font-bold uppercase">
-              <NuxtLink to="/login">Connexion</NuxtLink>
+              <NuxtLink to="/login">connexion</NuxtLink>
             </li>
           </ul>
         </div>
@@ -40,7 +40,7 @@
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
           <li class="font-bold uppercase">
-            <NuxtLink to="/teams">Equipes</NuxtLink>
+            <NuxtLink to="/teams">équipes</NuxtLink>
           </li>
         </ul>
       </div>

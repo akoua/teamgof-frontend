@@ -1,12 +1,20 @@
 <template>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <figure>
+  <VCard :fixedWidth="fixedWidth">
+    <template v-slot:card-image>
       <img :src="team.imageUrl" :alt="`${team.title}-image`" />
-    </figure>
-    <div class="card-body">
+    </template>
+    <template v-slot:card-body>
       <div>
         <Icon name="fe:medal" />
-        <span class="text-sm ml-1">{{ team.level }}</span>
+        <span class="text-xs ml-1">{{ team.level }}</span>
+      </div>
+      <div>
+        <Icon name="fe:location" />
+        <span class="text-xs ml-1">{{ team.location }}</span>
+      </div>
+      <div>
+        <Icon name="fe:flag" />
+        <span class="text-xs ml-1">{{ team.motivation }}</span>
       </div>
       <div class="flex justify-between items-center">
         <h2 class="card-title">
@@ -14,38 +22,40 @@
         </h2>
         <span>
           <Icon name="fe:users" /><span class="ml-2 text-sm">{{
-            `${team.memberCount}/5`
+            `${team.members.length}/5`
           }}</span>
         </span>
       </div>
-
       <p>{{ team.description }}</p>
-      <div class="card-actions justify-end">
-        <button class="btn btn-link">Rejoindre l’équipe</button>
-      </div>
-    </div>
-  </div>
+    </template>
+    <template v-slot:card-button>
+      <label for="teamModal" class="btn btn-link" @click="handleShowMore"
+        >Voir Plus</label
+      >
+    </template>
+  </VCard>
 </template>
 
 <script lang="ts">
-interface Team {
-  title: string;
-  level: string;
-  imageUrl: string;
-  description: string;
-  memberCount: number;
-}
-
+import Team from "~/models/team.model";
+import { mapActions } from "pinia";
+import { useTeamsStore } from "~/stores/teams";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  setup() {
-    return {};
-  },
   props: {
     team: {
       type: Object as PropType<Team>,
       required: true,
+    },
+    fixedWidth: {
+      type: Boolean,
+    },
+  },
+  methods: {
+    ...mapActions(useTeamsStore, ["setSelectedTeam"]),
+    handleShowMore() {
+      this.setSelectedTeam(this.team);
     },
   },
 });

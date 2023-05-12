@@ -5,9 +5,10 @@
   >
     <div class="hero-overlay bg-opacity-60"></div>
     <div class="hero-content text-center text-neutral-content md:px-20">
-      <div class="max-w-md">
-        <h1 class="mb-5 text-5xl font-bold">
-          TEAMGOF, trouvez votre équipe et vos épreuves en un seul clic
+      <div class="max-w-lg">
+        <h1 class="mb-5 text-4xl font-bold">
+          TEAMGOF, Trouvez votre équipe idéale en un clin d'œil grâce à nos
+          recommandations personnalisées
         </h1>
         <NuxtLink to="/sign-up">
           <button class="btn btn-primary">Rejoignez La Communauté</button>
