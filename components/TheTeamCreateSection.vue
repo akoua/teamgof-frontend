@@ -1,106 +1,90 @@
 <template>
-    <div class="team">
-      <div class="team-image">
-        <img :src="imagePath" :alt="title" />
+  <div class="container mx-auto my-10">
+    <h1 class="text-3xl font-bold text-center mb-5">Rejoindre un équipe</h1>
+    <form class="max-w-md mx-auto" @submit.prevent="submitForm">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Titre</label>
+        <input v-model="title" id="title" type="text" class="input input-bordered w-full" placeholder="Entrez le titre de votre annonce" required>
       </div>
-      <div class="team-info">
-        <h2 class="team-title">{{ title }}</h2>
-        <p class="team-description">{{ description }}</p>
-        <p class="team-level">{{ level }}</p>
-        <p class="team-location">{{ location }}</p>
-        <div class="team-championship">
-          <label for="championship-id">Championship:</label>
-          <select id="championship-id" v-model="championshipId">
-            <option v-for="championship in championships" :key="championship.id" :value="championship.id">{{ championship.name }}</option>
-          </select>
-        </div>
-        <p class="team-sport">{{ sport }}</p>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="description">Description</label>
+        <textarea v-model="description" id="description" class="textarea textarea-bordered w-full" rows="5" placeholder="Entrez une description détaillée de votre annonce" required></textarea>
       </div>
-    </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="annonceType">Discipline</label>
+        <select v-model="annonceType" id="annonceType" class="select select-bordered w-full" required>
+          <option value="CCE" :selected="annonceType === 'CCE'">CCE</option>
+          <option value="CSO">CSO</option>
+          <option value="Equifun">Equifun</option>
+        </select>
+      </div>
+      <div class="mb-4" id="results">
+       <h2 class="block text-gray-700 text-sm font-bold mb-2">Chosir un niveau de  {{annonceType}}</h2>
+       <select v-model="selectedResultat" id="results" class="select select-bordered w-full">
+        <option v-for="result in results" :value="result">{{ result }}</option>
+       </select> 
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="motivation">Motivation</label>
+        <select v-model="motivation" id="motivatione" class="select select-bordered w-full" required>
+          <option value=""></option>
+          <option value="Convivialité et plaisir">Convivialité et plaisir</option>
+          <option value="Défis et progression">Défis et progression</option>
+          <option value="Esprit d'équipe et compétition">Esprit d'équipe et compétition</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="location">Localisation</label>
+        <input v-model="location" id="location" type="text" class="input input-bordered w-full" placeholder="Code postale ou Département" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-5 mx-auto block">Poster</button>
+    </form>
+  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({
-    props: {
-      title: {
-        type: String,
-        required: true
-      },
-      imagePath: {
-        type: String,
-        required: true
-      },
-      description: {
-        type: String,
-        required: true
-      },
-      level: {
-        type: String,
-        required: true
-      },
-      location: {
-        type: String,
-        required: true
-      },
-      championshipId: {
-        type: Number,
-        required: true
-      },
-      sport: {
-        type: String,
-        required: true
-      }
-    },
-    data() {
-      return {
-        championships: [
-          { id: 1, name: 'GOF' },
-          { id: 2, name: 'CSO' },
-          { id: 3, name: 'Equifun' },
-        ]
-      }
-    },
-    setup () {
-           return {}
+<script>
+export default {
+  data() {
+    return {
+      title: '',
+      description: '',
+      level: '',
+      location: '',
+      motivation:'',
+      annonceType: 'CCE',// valeur initialisé à CCE par défaut et selectionnée par défaut à chaque réchargement de la page
+      results: [],
+      selectedResultat: ''
     }
-})
+  },
+  methods: {
+    submitForm() {
+      // Code pour soumettre le formulaire ici
+      console.log('Formulaire soumis avec succès !')
+    },
+    fetchResults(option){
+      switch (option) {
+        case 'CCE':
+          this.results = ['As Poney Elite','As Poney 1','As Poney 2 D'];
+          break;
+        case 'CSO':
+          this.results = ['As Poney Elite Excellence(130/135)','As Poney Elite(125/130)','As Poney 1(120/125)','Club 1(95/100)'];
+          break;
+        case 'Equifun':
+          this.results = ['Club Poney Juniors,Cadets et mon Equipe','Club Poney Minimes et moins Equipe','Club Poney Benjamin et moins équipe'];
+          break;
+        default:
+          this.results = [];
+          break;
+      }
+      this.selectedResultat = '';
+    }
+  },
+  watch:{
+    annonceType: function (newOption) {
+      this.results = [];
+      this.fetchResults(newOption);
+    }
+  }
+}
 </script>
-
-<style scoped>
-.team {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 2rem 0;
-}
-
-.team-image {
-  flex: 0 0 50%;
-  margin-right: 2rem;
-}
-
-.team-image img {
-  max-width: 100%;
-}
-
-.team-info {
-  flex: 0 0 calc(50% - 2rem);
-}
-
-.team-title {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.team-level {
-  margin-bottom: 0.5rem;
-}
-
-.team-championship {
-  margin-bottom: 0.5rem;
-}
-
-.team-championship select {
-  margin-left: 0.5rem;
-}
-</style>
