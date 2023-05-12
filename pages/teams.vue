@@ -5,18 +5,18 @@
       Explorez notre catalogue d'équipes pour trouver celle qui vous convient le
       mieux
     </h2>
-    <div class="flex flex-col items-center mt-12">
+    <div class="flex flex-col items-center my-12">
       <div class="flex">
         <div class="w-1/6"><TheFilterBar /></div>
         <div class="flex flex-col items-center w-5/6">
           <div
             class="grid grid-cols-1 md:grid-cols-3 md:gap-3 gap-y-8 place-items-center w-full"
           >
-            <VTeamCard :key="team.id" v-for="team in teams" :team="team" />
+            <VTeamCard :key="team.id" v-for="team in allTeams" :team="team" />
           </div>
         </div>
       </div>
-      <VPagination />
+      <!--<VPagination />-->
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ import { mapState } from "pinia";
 
 export default defineComponent({
   computed: {
-    ...mapState(useTeamsStore, ["teams"]),
+    ...mapState(useTeamsStore, ["allTeams"]),
   },
 });
 </script>

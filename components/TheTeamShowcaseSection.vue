@@ -7,7 +7,7 @@
         :key="team.id"
         v-for="team in top2Teams"
         :team="team"
-        :width="96"
+        :fixedWidth="true"
       />
     </div>
     <NuxtLink to="/teams">

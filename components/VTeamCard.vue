@@ -1,5 +1,5 @@
 <template>
-  <VCard :width="width">
+  <VCard :fixedWidth="fixedWidth">
     <template v-slot:card-image>
       <img :src="team.imageUrl" :alt="`${team.title}-image`" />
     </template>
@@ -48,8 +48,8 @@ export default defineComponent({
       type: Object as PropType<Team>,
       required: true,
     },
-    width: {
-      type: Number,
+    fixedWidth: {
+      type: Boolean,
     },
   },
   methods: {

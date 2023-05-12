@@ -44,8 +44,51 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useFiltersStore } from "~/stores/filters";
+import { useTeamsStore } from "~/stores/teams";
 
 export default defineComponent({
+  setup() {
+    const teamsStore = useTeamsStore();
+
+    const levels = computed(() => {
+      const teams = teamsStore.allTeams;
+      const levelsSet = new Set<string>();
+
+      teams.forEach((team) => {
+        levelsSet.add(team.level);
+      });
+
+      return Array.from(levelsSet);
+    });
+
+    const locations = computed(() => {
+      const teams = teamsStore.allTeams;
+      const locationsSet = new Set<string>();
+
+      teams.forEach((team) => {
+        locationsSet.add(team.location);
+      });
+
+      return Array.from(locationsSet);
+    });
+
+    const motivations = computed(() => {
+      const teams = teamsStore.allTeams;
+      const motivationsSet = new Set<string>();
+
+      teams.forEach((team) => {
+        motivationsSet.add(team.motivation);
+      });
+
+      return Array.from(motivationsSet);
+    });
+
+    return {
+      levels,
+      locations,
+      motivations,
+    };
+  },
   data() {
     return {
       selectedFilters: {
@@ -53,13 +96,6 @@ export default defineComponent({
         locations: [],
         motivations: [],
       },
-      levels: ["As Poney Elite"],
-      locations: ["Rennes", "Paris", "Nice"],
-      motivations: [
-        "Convivialité et plaisir",
-        "Défis et progression",
-        "Esprit d'équipe et compétition",
-      ],
     };
   },
   watch: {

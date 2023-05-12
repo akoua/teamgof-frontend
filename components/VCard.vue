@@ -1,7 +1,7 @@
 <template>
   <div
     class="card bg-base-100 shadow-xl"
-    :class="width ? `w-${width}` : 'w-full'"
+    :class="fixedWidth ? 'w-96' : 'w-full'"
   >
     <figure>
       <slot name="card-image"></slot>
@@ -23,8 +23,8 @@ export default defineComponent({
     return {};
   },
   props: {
-    width: {
-      type: Number,
+    fixedWidth: {
+      type: Boolean,
     },
   },
 });
