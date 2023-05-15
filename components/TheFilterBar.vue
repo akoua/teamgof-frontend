@@ -1,6 +1,6 @@
 <template>
-  <div class="mb-4 border-green-700 border-2">
-    <div class="block md:hidden border-red-500 border-2">
+  <div class="mb-4">
+    <div class="block md:hidden">
       <div class="flex items-center justify-between text-xs">
         <!--Niveau-->
         <div class="dropdown">
