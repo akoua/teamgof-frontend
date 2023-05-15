@@ -24,14 +24,16 @@
 </template>
 
 <script lang="ts">
-useHead({
-  title: "Équipes",
-});
 import { defineComponent } from "vue";
 import { useTeamsStore } from "~/stores/teams";
 import { mapState } from "pinia";
 
 export default defineComponent({
+  setup() {
+    useHead({
+      title: "Équipes",
+    });
+  },
   computed: {
     ...mapState(useTeamsStore, ["allTeams"]),
   },
