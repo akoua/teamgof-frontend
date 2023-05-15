@@ -26,7 +26,7 @@
       </div>
       <p class="mt-4">{{ selectedTeam.description }}</p>
       <div class="mt-4">
-        <h3 class="font-bold">Membres Actuels</h3>
+        <h3 class="font-bold underline decoration-4">Membres Actuels</h3>
         <ul class="mt-2">
           <li
             :key="index"
