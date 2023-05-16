@@ -42,6 +42,7 @@
 
 <script>
 export default {
+  name: "SignupStep3",
   data() {
     return {
       /* For form components generate dynamically */

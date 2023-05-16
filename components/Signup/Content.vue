@@ -31,15 +31,17 @@
 </template>
 
 <script>
-import Step1 from "@/components/signup/signupStep1.vue";
-import Step2 from "@/components/signup/signupStep2.vue";
-import Step3 from "@/components/signup/signupStep3.vue";
+import SignupStep1 from "@/components/Signup/Step1.vue";
+import SignupStep2 from "@/components/Signup/Step2.vue";
+import SignupStep3 from "@/components/Signup/Step3.vue";
 
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   components: {
-    Step1,
-    Step2,
-    Step3,
+    SignupStep1,
+    SignupStep2,
+    SignupStep3,
   },
   data() {
     return {
@@ -47,13 +49,13 @@ export default {
       currentStep: 0,
       steps: [
         {
-          component: "Step1",
+          component: "SignupStep1",
         },
         {
-          component: "Step2",
+          component: "SignupStep2",
         },
         {
-          component: "Step3",
+          component: "SignupStep3",
         },
       ],
     };
@@ -63,7 +65,7 @@ export default {
       return this.steps[this.currentStep].component;
     },
   }
-};
+});
 </script>
 
 
