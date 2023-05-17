@@ -4,7 +4,11 @@
     <h2 class="mt-1">
       Explorez notre catalogue d'équipes pour trouver celle qui vous convient le
       mieux
-    </h2>
+    </h2> 
+    <br>
+    <label for="teamcreate" class="btn btn-active" @click="handleShowMore"
+        >Créer une Equipe</label>
+    
     <div class="flex flex-col items-center my-12">
       <div class="flex flex-col md:flex-row">
         <div class="w-full md:w-1/6 md:pr-4 mb-4 md:mb-0">
@@ -18,13 +22,14 @@
           </div>
         </div>
       </div>
-      <!--<VPagination />-->
     </div>
+    <!-- Ajout de la boîte de dialogue en utilisant un composant -->
+    <CreateDialog v-if="showDialog" @closeDialog="showDialog = false" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { useTeamsStore } from "~/stores/teams";
 import { mapState } from "pinia";
 
@@ -37,6 +42,16 @@ export default defineComponent({
   computed: {
     ...mapState(useTeamsStore, ["allTeams"]),
   },
+  data(){
+    return{
+      showDialog: false
+    }
+  },
+  methods: {
+    handleShowMore() {
+      this.showDialog = true;
+    }
+  }
 });
 </script>
 
