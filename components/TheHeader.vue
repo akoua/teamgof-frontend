@@ -45,7 +45,7 @@
         </ul>
       </div>
       <div class="navbar-end invisible md:visible">
-        <NuxtLink to="/login" class="btn btn-secondary"> Connexion </NuxtLink>
+        <NuxtLink to="/sign-in" class="btn btn-secondary"> Connexion </NuxtLink>
         <NuxtLink to="/sign-up" class="ml-4 btn btn-primary">
           Inscription
         </NuxtLink>
