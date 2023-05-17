@@ -185,7 +185,7 @@ export const useTeamsStore = defineStore("teams", {
     },
   },
   actions: {
-    setSelectedTeam(team: Team) {
+    setSelectedTeam(team: Team): void {
       this.team = team;
     },
   },

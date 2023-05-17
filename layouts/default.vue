@@ -6,6 +6,8 @@
     </main>
     <TheFooter />
     <TheTeamModal />
+    <TheAddSportModal />
+    <TheSportModal />
   </div>
 </template>
 

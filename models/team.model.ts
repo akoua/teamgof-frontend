@@ -1,5 +1,5 @@
 interface Team {
-  id: number;
+  id?: number;
   title: string;
   level: string;
   location: string;

@@ -13,13 +13,13 @@ export const useFiltersStore = defineStore("filters", {
     motivations: [],
   }),
   actions: {
-    setLevels(levels: string[]) {
+    setLevels(levels: string[]): void {
       this.levels = levels;
     },
-    setLocations(locations: string[]) {
+    setLocations(locations: string[]): void {
       this.locations = locations;
     },
-    setMotivations(motivations: string[]) {
+    setMotivations(motivations: string[]): void {
       this.motivations = motivations;
     },
   },

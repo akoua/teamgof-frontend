@@ -24,7 +24,21 @@
             class="menu menu-compact dropdown-content mt-3 shadow bg-base-100 rounded-box w-52"
           >
             <li class="font-bold uppercase">
-              <NuxtLink to="/teams">équipes</NuxtLink>
+              <NuxtLink :to="$encodeURIComponent('/équipes')">équipes</NuxtLink>
+            </li>
+            <li tabindex="0" class="font-bold uppercase">
+              <a class="justify-between">
+                Gestion
+                <Icon name="fe:arrow-right" />
+              </a>
+              <ul class="p-2">
+                <li><NuxtLink to="/disciplines">Disciplines</NuxtLink></li>
+                <li>
+                  <NuxtLink :to="$encodeURIComponent('/épreuves')"
+                    >Épreuves</NuxtLink
+                  >
+                </li>
+              </ul>
             </li>
             <li class="font-bold uppercase">
               <NuxtLink to="/sign-up">inscription</NuxtLink>
@@ -40,7 +54,21 @@
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
           <li class="font-bold uppercase">
-            <NuxtLink to="/teams">équipes</NuxtLink>
+            <NuxtLink :to="$encodeURIComponent('/équipes')">équipes</NuxtLink>
+          </li>
+          <li tabindex="0" class="font-bold uppercase">
+            <a>
+              Gestion
+              <Icon name="fe:arrow-down" />
+            </a>
+            <ul class="p-2">
+              <li><NuxtLink to="/disciplines">Disciplines</NuxtLink></li>
+              <li>
+                <NuxtLink :to="$encodeURIComponent('/épreuves')"
+                  >Épreuves</NuxtLink
+                >
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -53,3 +81,4 @@
     </div>
   </nav>
 </template>
+©

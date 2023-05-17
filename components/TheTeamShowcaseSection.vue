@@ -10,7 +10,7 @@
         :fixedWidth="true"
       />
     </div>
-    <NuxtLink to="/teams">
+    <NuxtLink :to="$encodeURIComponent('/équipes')">
       <button class="btn btn-primary mt-12">Voir Plus D’équipes</button>
     </NuxtLink>
   </div>
