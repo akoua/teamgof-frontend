@@ -1,5 +1,5 @@
 export const DATA_TYPES = {
-  SPORT: "sport",
+  DISCIPLINE: "discipline",
   CHAMPIONSHIP: "championship",
 };
 

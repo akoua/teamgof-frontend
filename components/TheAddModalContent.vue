@@ -28,7 +28,7 @@ export default defineComponent({
         case DATA_TYPES.CHAMPIONSHIP:
           title = "épreuve";
           break;
-        case DATA_TYPES.SPORT:
+        case DATA_TYPES.DISCIPLINE:
           title = "discipline";
           break;
       }
@@ -40,7 +40,7 @@ export default defineComponent({
         case DATA_TYPES.CHAMPIONSHIP:
           text += "l'épreuve";
           break;
-        case DATA_TYPES.SPORT:
+        case DATA_TYPES.DISCIPLINE:
           text += "la discipline";
           break;
       }

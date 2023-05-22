@@ -3,11 +3,11 @@
     <TheHeader />
     <main>
       <slot />
+      <TheFAB iconName="fe:plus" />
     </main>
     <TheFooter />
     <TheTeamModal />
-    <TheAddSportModal />
-    <TheSportModal />
+    <TheDisciplineModal />
   </div>
 </template>
 
@@ -30,5 +30,6 @@ export default defineComponent({
 
 main {
   flex: 1;
+  position: relative;
 }
 </style>

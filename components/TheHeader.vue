@@ -34,9 +34,7 @@
               <ul class="p-2">
                 <li><NuxtLink to="/disciplines">Disciplines</NuxtLink></li>
                 <li>
-                  <NuxtLink :to="$encodeURIComponent('/épreuves')"
-                    >Épreuves</NuxtLink
-                  >
+                  <NuxtLink to="/championnats">Championnats</NuxtLink>
                 </li>
               </ul>
             </li>
@@ -64,9 +62,7 @@
             <ul class="p-2">
               <li><NuxtLink to="/disciplines">Disciplines</NuxtLink></li>
               <li>
-                <NuxtLink :to="$encodeURIComponent('/épreuves')"
-                  >Épreuves</NuxtLink
-                >
+                <NuxtLink to="/championnats">Championnats</NuxtLink>
               </li>
             </ul>
           </li>
