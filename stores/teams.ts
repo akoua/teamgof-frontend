@@ -17,7 +17,7 @@ export const useTeamsStore = defineStore("teams", {
         motivation: "Convivialité et plaisir",
         location: "Rennes",
         imageUrl:
-          "https://images.unsplash.com/flagged/photo-1569319388901-605a6d2d1299?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80",
+        "/images/no-image.png",
         description:
           "Une équipe de cavaliers passionnés de saut d'obstacles, prêts à relever tous les défis ensemble !",
         members: [
@@ -45,7 +45,7 @@ export const useTeamsStore = defineStore("teams", {
         location: "Paris",
         motivation: "Convivialité et plaisir",
         imageUrl:
-          "https://images.unsplash.com/flagged/photo-1569319388901-605a6d2d1299?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80",
+        "/images/no-image.png",
         description:
           "Une équipe de cavaliers passionnés de saut d'obstacles, prêts à relever tous les défis ensemble !",
         members: [
@@ -78,7 +78,7 @@ export const useTeamsStore = defineStore("teams", {
         motivation: "Défis et progression",
         location: "Paris",
         imageUrl:
-          "https://images.unsplash.com/flagged/photo-1569319388901-605a6d2d1299?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80",
+        "/images/no-image.png",
         description:
           "Une équipe de cavaliers passionnés de saut d'obstacles, prêts à relever tous les défis ensemble !",
         members: [
@@ -111,7 +111,7 @@ export const useTeamsStore = defineStore("teams", {
         motivation: "Défis et progression",
         location: "Nice",
         imageUrl:
-          "https://images.unsplash.com/flagged/photo-1569319388901-605a6d2d1299?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80",
+          "/images/no-image.png",
         description:
           "Une équipe de cavaliers passionnés de saut d'obstacles, prêts à relever tous les défis ensemble !",
         members: [
@@ -144,7 +144,7 @@ export const useTeamsStore = defineStore("teams", {
         location: "Paris",
         motivation: "Esprit d'équipe et compétition",
         imageUrl:
-          "https://images.unsplash.com/flagged/photo-1569319388901-605a6d2d1299?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80",
+        "/images/no-image.png",
         description:
           "Une équipe de cavaliers passionnés de saut d'obstacles, prêts à relever tous les défis ensemble !",
         members: [

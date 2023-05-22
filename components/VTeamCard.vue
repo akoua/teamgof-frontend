@@ -1,7 +1,7 @@
 <template>
   <VCard :fixedWidth="fixedWidth">
     <template v-slot:card-image>
-      <img :src="team.imageUrl" :alt="`${team.title}-image`" />
+      <img :src="team.imageUrl" width="100" :alt="`${team.title}-image`" />
     </template>
     <template v-slot:card-body>
       <div>
