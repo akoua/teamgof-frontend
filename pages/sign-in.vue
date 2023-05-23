@@ -2,12 +2,25 @@
   <SigninContent />
 </template>
 
-<script setup lang="ts">
-useHead({
-  title: "Connexion",
-});
+<script lang="ts">
+import { useAuthStore } from "@/stores/auth";
+import { mapActions } from "pinia";
 
-definePageMeta({
-  layout: "register",
+export default defineComponent({
+  setup() {
+    useHead({
+      title: "Connexion",
+    });
+
+    definePageMeta({
+      layout: "register",
+    });
+  },
+  methods: {
+    ...mapActions(useAuthStore, ["login"]),
+  },
+  created() {
+    this.login("yda@gm.com", "123");
+  },
 });
 </script>
