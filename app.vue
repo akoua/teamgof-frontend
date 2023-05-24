@@ -4,7 +4,6 @@
   </NuxtLayout>
 </template>
 
-<!-- Make Dynamic Title-->
 <script setup>
 useHead({
   titleTemplate: (pageName) => {

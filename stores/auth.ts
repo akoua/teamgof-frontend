@@ -1,12 +1,12 @@
 import { defineStore } from "pinia";
-import { useAxios } from "~/composables/useAxios";
+import instance from "~/common/axios";
 
+import authService from "~/common/auth.service";
+import { saveUser, destroyUser, getUser } from "@/common/localstorage.service";
 export interface AuthState {
   userData: UserData | null;
   loading: boolean;
 }
-
-let axios = useAxios();
 
 export const useAuthStore = defineStore("auth", {
   state: (): AuthState => ({
@@ -20,34 +20,19 @@ export const useAuthStore = defineStore("auth", {
   },
   actions: {
     checkAuth(): void {
-      const user = localStorage.getItem("user");
+      const user = getUser();
       if (user) {
-        this.userData = JSON.parse(user);
+        this.userData = user;
       }
-    },
-    async signup(signupPayload: any): Promise<void> {
-      await axios.post("/login/sign-up", signupPayload).then((result) => {
-        console.log(result.data);
-      });
     },
     async login(email: string, password: string): Promise<void> {
       this.userData = null;
       this.loading = true;
-      await axios
-        .post(
-          "/login/sign-in",
-          { email },
-          {
-            auth: {
-              username: email,
-              password: password,
-            },
-          }
-        )
+      await authService
+        .login(email, password)
         .then((result) => {
-          let user = result.data.data;
-          this.userData = user;
-          localStorage.setItem("user", JSON.stringify(user));
+          this.userData = result;
+          saveUser(this.userData);
         })
         .finally(() => {
           this.loading = false;
@@ -55,7 +40,7 @@ export const useAuthStore = defineStore("auth", {
     },
     logout() {
       this.userData = null;
-      localStorage.removeItem("user");
+      destroyUser();
     },
   },
 });
