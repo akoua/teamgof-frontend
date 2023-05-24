@@ -83,7 +83,7 @@ export default defineComponent({
     ...mapState(useAuthStore, ["connectedUser", "isLoading"]),
   },
   methods: {
-    ...mapActions(useAuthStore, ["login", "signup"]),
+    ...mapActions(useAuthStore, ["login"]),
     async handleLogin() {
       if (!this.email || !this.password) {
         alert(

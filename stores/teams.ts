@@ -1,12 +1,13 @@
 import { defineStore } from "pinia";
 import Team from "~/models/team.model";
 import { useFiltersStore } from "./filters";
+import instance from "~/common/axios";
+import teamsService from "~/common/teams.service";
 export interface TeamsState {
   team: Team | undefined;
   teams: Array<Team>;
   loading: boolean;
 }
-let axios = useAxios();
 
 export const useTeamsStore = defineStore("teams", {
   state: (): TeamsState => ({
@@ -52,10 +53,10 @@ export const useTeamsStore = defineStore("teams", {
     },
     async fetchAllTeams(): Promise<void> {
       this.loading = true;
-      await axios
-        .get("/team/allTeams")
-        .then((result) => {
-          this.teams = result.data.data;
+      await teamsService
+        .getTeams()
+        .then((teams) => {
+          this.teams = teams;
         })
         .finally(() => {
           this.loading = false;
