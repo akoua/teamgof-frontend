@@ -127,7 +127,11 @@ export default defineComponent({
       const levelsSet = new Set<string>();
 
       teams.forEach((team) => {
-        levelsSet.add(team.level);
+        team.epreuves.forEach((epreuve) => {
+          epreuve.championshipNames.forEach((championship) => {
+            levelsSet.add(championship);
+          });
+        });
       });
 
       return Array.from(levelsSet);
@@ -138,7 +142,7 @@ export default defineComponent({
       const locationsSet = new Set<string>();
 
       teams.forEach((team) => {
-        locationsSet.add(team.location);
+        locationsSet.add(team.departement);
       });
 
       return Array.from(locationsSet);

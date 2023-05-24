@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper">
-    <TheHeader />
+    <ClientOnly>
+      <TheHeader />
+    </ClientOnly>
     <main>
       <slot />
     </main>
