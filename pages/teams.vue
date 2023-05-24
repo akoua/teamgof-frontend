@@ -5,6 +5,8 @@
       Explorez notre catalogue d'équipes pour trouver celle qui vous convient le
       mieux
     </h2>
+    <label for="teamcreate" class="btn btn-active" @click="handleShowMore"
+    >Créer une Equipe</label>
     <div class="flex flex-col items-center my-12 w-full">
       <div v-if="loading">
         <p>Chargement...</p>
@@ -38,11 +40,13 @@
         </template>
       </template>
     </div>
+    <!-- Ajout de la boîte de dialogue en utilisant un composant -->
+    <CreateDialog v-if="showDialog" @closeDialog="showDialog = false" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { useTeamsStore } from "~/stores/teams";
 import { mapState, mapActions } from "pinia";
 
@@ -61,6 +65,16 @@ export default defineComponent({
   created() {
     this.fetchAllTeams();
   },
+  data(){
+    return{
+      showDialog: false
+    }
+  },
+  methods: {
+    handleShowMore() {
+      this.showDialog = true;
+    }
+  }
 });
 </script>
 
