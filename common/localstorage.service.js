@@ -15,7 +15,7 @@ export const getRefreshToken = () => {
 
 export const saveUser = (user) => {
   if (typeof window !== "undefined") {
-    localStorage.setItem(USER, user);
+    localStorage.setItem(USER, JSON.stringify(user));
   }
 };
 
