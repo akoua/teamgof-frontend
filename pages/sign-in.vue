@@ -3,9 +3,6 @@
 </template>
 
 <script lang="ts">
-import { useAuthStore } from "@/stores/auth";
-import { mapActions } from "pinia";
-
 export default defineComponent({
   setup() {
     useHead({
@@ -15,12 +12,6 @@ export default defineComponent({
     definePageMeta({
       layout: "register",
     });
-  },
-  methods: {
-    ...mapActions(useAuthStore, ["login"]),
-  },
-  created() {
-    this.login("yda@gm.com", "123");
   },
 });
 </script>
