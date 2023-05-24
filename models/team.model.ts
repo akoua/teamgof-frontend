@@ -1,15 +1,15 @@
 interface Team {
-  id: number;
+  id?: number;
   name: string;
   description: string;
   motivation: string;
   departement: string;
   imageUrl?: string;
-  members: Array<TeamMember>;
+  members?: Array<TeamMember>;
   epreuves: Array<TeamChampionship>;
 }
 
-interface TeamMember {
+export interface TeamMember {
   firstName: string;
   lastName: string;
   ffe: string;

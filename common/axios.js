@@ -35,13 +35,13 @@ instance.interceptors.response.use(
           // Handle refresh token error (e.g., show error message, redirect to login page)
           console.error(refreshError);
           // Example: Redirect to the login page
-          window.location.href = "/";
+          //window.location.href = "/";
         }
       } else {
         // Handle missing refresh token (e.g., show error message, redirect to login page)
         console.error("Refresh token is missing");
         // Example: Redirect to the login page
-        window.location.href = "/";
+        //window.location.href = "/";
       }
     }
     return Promise.reject(error);

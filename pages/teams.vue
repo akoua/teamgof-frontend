@@ -5,8 +5,12 @@
       Explorez notre catalogue d'équipes pour trouver celle qui vous convient le
       mieux
     </h2>
-    <label for="teamcreate" class="btn btn-active" @click="handleShowMore"
-    >Créer une Equipe</label>
+    <label
+      v-if="allTeams.length > 0 && isAuthenticated"
+      for="teamcreate"
+      class="btn btn-primary my-4"
+      >Créer une Equipe</label
+    >
     <div class="flex flex-col items-center my-12 w-full">
       <div v-if="loading">
         <p>Chargement...</p>
@@ -32,24 +36,27 @@
             <p class="text-gray-500 text-lg text-center mb-4">
               Aucune équipe n'existe actuellement.
             </p>
-            <p class="text-gray-500 text-center mb-8">
-              Pourquoi ne pas créer votre propre équipe dès maintenant ?
-            </p>
-            <NuxtLink to="#" class="btn btn-primary">Créer une équipe</NuxtLink>
+            <div v-if="isAuthenticated">
+              <p class="text-gray-500 text-center mb-8">
+                Pourquoi ne pas créer votre propre équipe dès maintenant ?
+              </p>
+              <label for="teamcreate" class="btn btn-primary"
+                >Créer une Equipe</label
+              >
+            </div>
           </div>
         </template>
       </template>
     </div>
-    <!-- Ajout de la boîte de dialogue en utilisant un composant -->
-    <CreateDialog v-if="showDialog" @closeDialog="showDialog = false" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useTeamsStore } from "~/stores/teams";
+import { useAuthStore } from "@/stores/auth";
 import { mapState, mapActions } from "pinia";
-
+import { useDisciplinesStore } from "~/stores/disciplines";
 export default defineComponent({
   setup() {
     useHead({
@@ -58,23 +65,16 @@ export default defineComponent({
   },
   computed: {
     ...mapState(useTeamsStore, ["allTeams", "loading"]),
+    ...mapState(useAuthStore, ["isAuthenticated"]),
   },
   methods: {
     ...mapActions(useTeamsStore, ["fetchAllTeams"]),
+    ...mapActions(useDisciplinesStore, ["fetchAllDisciplines"]),
   },
   created() {
     this.fetchAllTeams();
+    this.fetchAllDisciplines();
   },
-  data(){
-    return{
-      showDialog: false
-    }
-  },
-  methods: {
-    handleShowMore() {
-      this.showDialog = true;
-    }
-  }
 });
 </script>
 
