@@ -1,14 +1,35 @@
 <template>
   <VModal id="teamModal">
     <div v-if="selectedTeam">
-      <img :src="selectedTeam.imageUrl" :alt="`${selectedTeam.title}-image`" />
+      <div class="w-full h-20">
+        <img
+          :src="selectedTeam.imageUrl"
+          :alt="`${selectedTeam.name}-image`"
+          v-if="selectedTeam.imageUrl"
+          class="w-full h-full object-cover"
+        />
+        <template v-else>
+          <img
+            src="@/assets/images/no-image.png"
+            alt="no-image"
+            class="w-full h-full object-contain"
+          />
+        </template>
+      </div>
+
       <div class="mt-4">
         <Icon name="fe:medal" />
-        <span class="text-sm ml-1">{{ selectedTeam.level }}</span>
+        <span class="text-xs ml-1">
+          {{
+            selectedTeam.epreuves
+              .map((epreuve) => epreuve.championshipNames.join(" · "))
+              .join(" · ")
+          }}
+        </span>
       </div>
       <div class="mt-4">
         <Icon name="fe:location" />
-        <span class="text-sm ml-1">{{ selectedTeam.location }}</span>
+        <span class="text-sm ml-1">{{ selectedTeam.departement }}</span>
       </div>
       <div class="mt-4">
         <Icon name="fe:flag" />
@@ -16,7 +37,7 @@
       </div>
       <div class="flex justify-between items-center mt-4">
         <h2 class="font-bold text-2xl">
-          {{ selectedTeam.title }}
+          {{ selectedTeam.name }}
         </h2>
         <span>
           <Icon name="fe:users" /><span class="ml-2 text-sm">{{
@@ -39,7 +60,7 @@
             </span>
             <span class="ml-8">
               <Icon name="fe:tag" />
-              {{ member.ffeNumber }}
+              {{ member.ffe }}
             </span>
           </li>
         </ul>
