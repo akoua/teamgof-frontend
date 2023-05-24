@@ -1,90 +1,159 @@
 <template>
-    <VModal id="teamcreate">
-        <h1 class="text-3xl font-bold text-center mb-5">Formulaire inscription</h1>
+  <VModal id="teamcreate">
+    <h1 class="text-3xl font-bold text-center mb-5">Nouvelle Équipe</h1>
     <form class="max-w-md mx-auto" @submit.prevent="submitForm">
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Titre</label>
-        <input v-model="title" id="title" type="text" class="input input-bordered w-full" placeholder="Entrez le titre de votre annonce" required>
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="title"
+          >Nom</label
+        >
+        <input
+          v-model="title"
+          id="title"
+          type="text"
+          class="input input-bordered w-full"
+          placeholder="Entrez le nom de votre équipe"
+          required
+        />
       </div>
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="description">Description</label>
-        <textarea v-model="description" id="description" class="textarea textarea-bordered w-full" rows="5" placeholder="Entrez une description détaillée de votre annonce" required></textarea>
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="description"
+          >Description</label
+        >
+        <textarea
+          v-model="description"
+          id="description"
+          class="textarea textarea-bordered w-full"
+          rows="5"
+          placeholder="Entrez une description détaillée de votre équipe"
+          required
+        ></textarea>
       </div>
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="annonceType">Discipline</label>
-        <select v-model="annonceType" id="annonceType" class="select select-bordered w-full" required>
-          <option value="CCE" :selected="annonceType === 'CCE'">CCE</option>
-          <option value="CSO">CSO</option>
-          <option value="Equifun">Equifun</option>
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="discipline"
+          >Discipline</label
+        >
+        <select
+          v-model="discipline"
+          id="discipline"
+          class="select select-bordered w-full"
+          required
+        >
+          <option disabled required></option>
+          <option :value="discipline" v-for="discipline in allDisciplines">
+            {{ discipline.disciplineName }}
+          </option>
         </select>
       </div>
       <div class="mb-4" id="results">
-       <h2 class="block text-gray-700 text-sm font-bold mb-2">Chosir un niveau de  {{annonceType}}</h2>
-       <select v-model="selectedResultat" id="results" class="select select-bordered w-full">
-        <option v-for="result in results" :value="result">{{ result }}</option>
-       </select> 
-      </div>
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="motivation">Motivation</label>
-        <select v-model="motivation" id="motivatione" class="select select-bordered w-full" required>
-          <option value=""></option>
-          <option value="Convivialité et plaisir">Convivialité et plaisir</option>
-          <option value="Défis et progression">Défis et progression</option>
-          <option value="Esprit d'équipe et compétition">Esprit d'équipe et compétition</option>
+        <h2 class="block text-gray-700 text-sm font-bold mb-2">
+          Chosissez un niveau de {{ discipline?.disciplineName }}
+        </h2>
+        <select
+          v-model="championships"
+          id="championships"
+          class="select select-bordered w-full"
+          multiple
+        >
+          <option disabled selected></option>
+          <option
+            v-for="championship in discipline?.championships"
+            :value="championship.championshipId"
+          >
+            {{ championship.championshipName }}
+          </option>
         </select>
       </div>
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="location">Localisation</label>
-        <input v-model="location" id="location" type="text" class="input input-bordered w-full" placeholder="Code postale ou Département" required>
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="motivation"
+          >Motivation</label
+        >
+        <select
+          v-model="motivation"
+          id="motivation"
+          class="select select-bordered w-full"
+          required
+        >
+          <option selected disabled></option>
+          <option value="DECOUVERTE">Decouverte</option>
+          <option value="Convivialité et plaisir">
+            Convivialité et plaisir
+          </option>
+          <option value="Défis et progression">Défis et progression</option>
+          <option value="Esprit d'équipe et compétition">
+            Esprit d'équipe et compétition
+          </option>
+        </select>
       </div>
-
-      <button type="submit" class="btn btn-primary mt-5 mx-auto block">Poster</button>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="location"
+          >Localisation</label
+        >
+        <input
+          v-model="location"
+          id="location"
+          type="text"
+          class="input input-bordered w-full"
+          placeholder="Code postale ou Département"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary mt-5 mx-auto block">
+        Créer
+      </button>
     </form>
-
-    </VModal>
+  </VModal>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { mapState, mapActions } from "pinia";
+import { useDisciplinesStore } from "~/stores/disciplines";
+import { useTeamsStore } from "~/stores/teams";
+import Discipline from "@/models/discipline.model";
+export default defineComponent({
   data() {
     return {
-      title: '',
-      description: '',
-      level: '',
-      location: '',
-      motivation:'',
-      annonceType: 'CCE',// valeur initialisé à CCE par défaut et selectionnée par défaut à chaque réchargement de la page
-      results: [],
-      selectedResultat: ''
-    }
+      title: "",
+      description: "",
+      location: "",
+      motivation: "DECOUVERTE",
+      discipline: null as Discipline | null,
+      championships: [] as Array<number>,
+    };
+  },
+  computed: {
+    ...mapState(useDisciplinesStore, ["allDisciplines"]),
   },
   methods: {
-    submitForm() {
-      // Code pour soumettre le formulaire ici
-      console.log('Formulaire soumis avec succès !')
-    },
-    fetchResults(option){
-      switch (option) {
-        case 'CCE':
-          this.results = ['As Poney Elite','As Poney 1','As Poney 2 D'];
-          break;
-        case 'CSO':
-          this.results = ['As Poney Elite Excellence(130/135)','As Poney Elite(125/130)','As Poney 1(120/125)','Club 1(95/100)'];
-          break;
-        case 'Equifun':
-          this.results = ['Club Poney Juniors,Cadets et mon Equipe','Club Poney Minimes et moins Equipe','Club Poney Benjamin et moins équipe'];
-          break;
-        default:
-          this.results = [];
-          break;
+    ...mapActions(useTeamsStore, ["createTeam"]),
+    async submitForm() {
+      if (
+        !this.title ||
+        !this.description ||
+        !this.location ||
+        !this.motivation ||
+        !this.discipline ||
+        this.championships.length === 0
+      ) {
+        alert("Veuillez entrer toutes les informations de l'équipe.");
+      } else {
+        let team = {
+          name: this.title,
+          description: this.description,
+          motivation: this.motivation,
+          departement: this.location,
+          championshipIds: this.championships,
+          members: [],
+        };
+        await this.createTeam(team).then(() => {
+          console.log("Formulaire soumis avec succès !");
+        });
       }
-      this.selectedResultat = '';
-    }
+    },
   },
-  watch:{
-    annonceType: function (newOption) {
-      this.results = [];
-      this.fetchResults(newOption);
-    }
-  }
-}
+});
 </script>

@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import Team from "~/models/team.model";
 import { useFiltersStore } from "./filters";
 import instance from "~/common/axios";
-import teamsService from "~/common/teams.service";
+import teamService from "~/common/team.service";
+import TeamCreate from "~/models/team.create.model";
 export interface TeamsState {
   team: Team | undefined;
   teams: Array<Team>;
@@ -53,7 +54,7 @@ export const useTeamsStore = defineStore("teams", {
     },
     async fetchAllTeams(): Promise<void> {
       this.loading = true;
-      await teamsService
+      await teamService
         .getTeams()
         .then((teams) => {
           this.teams = teams;
@@ -61,6 +62,10 @@ export const useTeamsStore = defineStore("teams", {
         .finally(() => {
           this.loading = false;
         });
+    },
+    async createTeam(team: TeamCreate): Promise<void> {
+      console.log(team);
+      await teamService.createTeam(team);
     },
   },
 });
