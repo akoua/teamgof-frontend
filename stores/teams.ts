@@ -18,6 +18,7 @@ export const useTeamsStore = defineStore("teams", {
   }),
   getters: {
     selectedTeam: (state) => state.team,
+    isLoading: (state) => state.loading,
     allTeams: (state) => {
       const filtersStore = useFiltersStore();
       const { levels, locations, motivations } = filtersStore;
@@ -64,8 +65,15 @@ export const useTeamsStore = defineStore("teams", {
         });
     },
     async createTeam(team: TeamCreate): Promise<void> {
-      console.log(team);
-      await teamService.createTeam(team);
+      this.loading = true;
+      await teamService
+        .createTeam(team)
+        .then((newTeam) => {
+          this.teams.push(newTeam!);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
 });

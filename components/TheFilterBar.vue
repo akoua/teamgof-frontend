@@ -1,7 +1,7 @@
 <template>
-  <div class="mb-4">
+  <div class="mb-4 h-full text-sm">
     <div class="block md:hidden">
-      <div class="flex items-center justify-between text-xs">
+      <div class="flex items-center justify-between">
         <!--Niveau-->
         <div class="dropdown">
           <label tabindex="0" class="btn m-1"

@@ -41,14 +41,14 @@
         </h2>
         <span>
           <Icon name="fe:users" /><span class="ml-2 text-sm">{{
-            `${selectedTeam.members.length}/5`
+            `${selectedTeam.members?.length}/5`
           }}</span>
         </span>
       </div>
       <p class="mt-4">{{ selectedTeam.description }}</p>
       <div class="mt-4">
         <h3 class="font-bold underline decoration-4">Membres Actuels</h3>
-        <ul class="mt-2">
+        <ul class="mt-2" v-if="selectedTeam.members?.length! > 0">
           <li
             :key="index"
             v-for="(member, index) in selectedTeam.members"
@@ -64,6 +64,9 @@
             </span>
           </li>
         </ul>
+        <template v-else>
+          <p class="mt-2">Pas encore de membres</p>
+        </template>
       </div>
     </div>
   </VModal>
