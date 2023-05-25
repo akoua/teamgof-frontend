@@ -1,5 +1,5 @@
 <template>
-  <VModal id="teamcreate">
+  <VModal id="teamcreate" ref="modal">
     <h1 class="text-3xl font-bold text-center mb-5">Nouvelle Équipe</h1>
     <form class="max-w-md mx-auto" @submit.prevent="submitForm">
       <div class="mb-4">
@@ -50,7 +50,7 @@
       </div>
       <div class="mb-4" id="results">
         <h2 class="block text-gray-700 text-sm font-bold mb-2">
-          Chosissez un niveau de {{ discipline?.disciplineName }}
+          Chosissez un niveau
         </h2>
         <select
           v-model="championships"
@@ -99,11 +99,15 @@
           id="location"
           type="text"
           class="input input-bordered w-full"
-          placeholder="Code postale ou Département"
+          placeholder="Département"
           required
         />
       </div>
-      <button type="submit" class="btn btn-primary mt-5 mx-auto block">
+      <button
+        type="submit"
+        class="btn btn-primary mt-5 mx-auto block"
+        :disabled="isLoading"
+      >
         Créer
       </button>
     </form>
@@ -114,7 +118,19 @@ import { mapState, mapActions } from "pinia";
 import { useDisciplinesStore } from "~/stores/disciplines";
 import { useTeamsStore } from "~/stores/teams";
 import Discipline from "@/models/discipline.model";
+import { VModal } from "~/.nuxt/components";
 export default defineComponent({
+  async setup() {
+    let modal = ref<InstanceType<typeof VModal>>();
+
+    let closeChildModal = async () => {
+      await modal.value?.closeModal();
+    };
+    return {
+      modal,
+      closeChildModal,
+    };
+  },
   data() {
     return {
       title: "",
@@ -127,6 +143,7 @@ export default defineComponent({
   },
   computed: {
     ...mapState(useDisciplinesStore, ["allDisciplines"]),
+    ...mapState(useTeamsStore, ["isLoading"]),
   },
   methods: {
     ...mapActions(useTeamsStore, ["createTeam"]),
@@ -149,8 +166,8 @@ export default defineComponent({
           championshipIds: this.championships,
           members: [],
         };
-        await this.createTeam(team).then(() => {
-          console.log("Formulaire soumis avec succès !");
+        await this.createTeam(team).then(async () => {
+          await this.closeChildModal();
         });
       }
     },

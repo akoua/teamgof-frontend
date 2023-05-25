@@ -1,5 +1,5 @@
 <template>
-  <div class="md:px-20 w-full mt-4">
+  <div class="md:px-4 w-full mt-4">
     <h1 class="font-extrabold uppercase text-3xl">Les équipes</h1>
     <h2 class="mt-1">
       Explorez notre catalogue d'équipes pour trouver celle qui vous convient le
@@ -12,7 +12,7 @@
       >Créer une Equipe</label
     >
     <div class="flex flex-col items-center my-12 w-full">
-      <div v-if="loading">
+      <div v-if="isLoading">
         <p>Chargement...</p>
       </div>
       <template v-else>
@@ -64,16 +64,18 @@ export default defineComponent({
     });
   },
   computed: {
-    ...mapState(useTeamsStore, ["allTeams", "loading"]),
+    ...mapState(useTeamsStore, ["allTeams", "isLoading"]),
     ...mapState(useAuthStore, ["isAuthenticated"]),
   },
   methods: {
     ...mapActions(useTeamsStore, ["fetchAllTeams"]),
     ...mapActions(useDisciplinesStore, ["fetchAllDisciplines"]),
   },
-  created() {
+  mounted() {
     this.fetchAllTeams();
-    this.fetchAllDisciplines();
+    if (this.isAuthenticated) {
+      this.fetchAllDisciplines();
+    }
   },
 });
 </script>

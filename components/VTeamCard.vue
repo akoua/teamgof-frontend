@@ -42,7 +42,7 @@
         </h2>
         <span>
           <Icon name="fe:users" /><span class="ml-2 text-sm">{{
-            `${team.members.length}/5`
+            `${team.members?.length}/5`
           }}</span>
         </span>
       </div>
