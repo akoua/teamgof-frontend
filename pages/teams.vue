@@ -42,13 +42,21 @@
             <p class="text-gray-500 text-lg text-center mb-4">
               Aucune équipe n'existe actuellement.
             </p>
-            <div v-if="isAuthenticated">
+            <div class="flex flex-col justify-center items-center">
               <p class="text-gray-500 text-center mb-8">
                 Pourquoi ne pas créer votre propre équipe dès maintenant ?
               </p>
-              <label for="teamcreate" class="btn btn-primary"
+              <label
+                v-if="isAuthenticated"
+                for="teamcreate"
+                class="btn btn-primary"
                 >Créer une Equipe</label
               >
+              <template v-else>
+                <NuxtLink to="/sign-up" class="btn btn-primary"
+                  >Créer une Equipe</NuxtLink
+                >
+              </template>
             </div>
           </div>
         </template>
