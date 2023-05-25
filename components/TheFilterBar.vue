@@ -70,8 +70,8 @@
         </div>
       </div>
     </div>
-    <div class="hidden md:block">
-      <h3 class="font-bold text-lg mb-2">Niveau</h3>
+    <div class="hidden md:block text-sm">
+      <h3 class="font-bold mb-2">Niveau</h3>
       <div v-for="level in levels" :key="level" class="mb-2">
         <label class="flex items-center space-x-2 cursor-pointer">
           <input
@@ -84,7 +84,7 @@
         </label>
       </div>
 
-      <h3 class="font-bold text-lg mb-2">Location</h3>
+      <h3 class="font-bold mb-2">Location</h3>
       <div v-for="location in locations" :key="location" class="mb-2">
         <label class="flex items-center space-x-2 cursor-pointer">
           <input
@@ -97,7 +97,7 @@
         </label>
       </div>
 
-      <h3 class="font-bold text-lg mb-2">Motivation</h3>
+      <h3 class="font-bold mb-2">Motivation</h3>
       <div v-for="motivation in motivations" :key="motivation" class="mb-2">
         <label class="flex items-center space-x-2 cursor-pointer">
           <input
@@ -123,7 +123,7 @@ export default defineComponent({
     const teamsStore = useTeamsStore();
 
     const levels = computed(() => {
-      const teams = teamsStore.allTeams;
+      const teams = teamsStore.filteredTeams;
       const levelsSet = new Set<string>();
 
       teams.forEach((team) => {
@@ -138,7 +138,7 @@ export default defineComponent({
     });
 
     const locations = computed(() => {
-      const teams = teamsStore.allTeams;
+      const teams = teamsStore.filteredTeams;
       const locationsSet = new Set<string>();
 
       teams.forEach((team) => {
@@ -149,7 +149,7 @@ export default defineComponent({
     });
 
     const motivations = computed(() => {
-      const teams = teamsStore.allTeams;
+      const teams = teamsStore.filteredTeams;
       const motivationsSet = new Set<string>();
 
       teams.forEach((team) => {
@@ -187,3 +187,5 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped></style>
