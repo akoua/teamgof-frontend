@@ -1,19 +1,31 @@
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { mapState } from 'pinia'
+import { useTeamsStore } from '~/stores/teams'
+
+export default defineComponent({
+  computed: {
+    ...mapState(useTeamsStore, ['selectedTeam']),
+  },
+})
+</script>
+
 <template>
   <VModal id="teamModal">
     <div v-if="selectedTeam">
       <div class="w-full h-20">
         <img
+          v-if="selectedTeam.imageUrl"
           :src="selectedTeam.imageUrl"
           :alt="`${selectedTeam.name}-image`"
-          v-if="selectedTeam.imageUrl"
           class="w-full h-full object-cover"
-        />
+        >
         <template v-else>
           <img
             src="@/assets/images/no-image.png"
             alt="no-image"
             class="w-full h-full object-contain"
-          />
+          >
         </template>
       </div>
 
@@ -45,13 +57,17 @@
           }}</span>
         </span>
       </div>
-      <p class="mt-4">{{ selectedTeam.description }}</p>
+      <p class="mt-4">
+        {{ selectedTeam.description }}
+      </p>
       <div class="mt-4">
-        <h3 class="font-bold underline decoration-4">Membres Actuels</h3>
+        <h3 class="font-bold underline decoration-4">
+          Membres Actuels
+        </h3>
         <ul class="mt-2">
           <li
-            :key="index"
             v-for="(member, index) in selectedTeam.members"
+            :key="index"
             class="mb-2"
           >
             <span>
@@ -68,16 +84,5 @@
     </div>
   </VModal>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useTeamsStore } from "~/stores/teams";
-import { mapState } from "pinia";
-export default defineComponent({
-  computed: {
-    ...mapState(useTeamsStore, ["selectedTeam"]),
-  },
-});
-</script>
 
 <style scoped></style>

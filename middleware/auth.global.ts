@@ -1,20 +1,20 @@
-import { useAuthStore } from "~/stores/auth";
+import { useAuthStore } from '~/stores/auth'
 
 export default defineNuxtRouteMiddleware((to, from) => {
-  if (process.server) return;
+  if (process.server)
+    return
 
-  let authStore = useAuthStore();
+  const authStore = useAuthStore()
 
-  authStore.checkAuth();
-  let isAuthenticated = authStore.isAuthenticated;
+  authStore.checkAuth()
+  const isAuthenticated = authStore.isAuthenticated
 
-  if (to.path === "/protected") {
-    if (!isAuthenticated) {
-      return navigateTo("/sign-in");
-    }
-  } else if (to.path === "/sign-in" || to.path === "/sign-up") {
-    if (isAuthenticated) {
-      return navigateTo("/protected");
-    }
+  if (to.path === '/protected') {
+    if (!isAuthenticated)
+      return navigateTo('/sign-in')
   }
-});
+  else if (to.path === '/sign-in' || to.path === '/sign-up') {
+    if (isAuthenticated)
+      return navigateTo('/protected')
+  }
+})

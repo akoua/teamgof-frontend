@@ -1,28 +1,25 @@
-let USER = "user";
+const USER = 'user'
 
-export const getUser = () => {
-  if (typeof window !== "undefined") {
-    return JSON.parse(localStorage.getItem(USER));
-  }
-};
+export function getUser() {
+  if (typeof window !== 'undefined')
+    return JSON.parse(localStorage.getItem(USER))
+}
 
-export const getAccessToken = () => {
-  return getUser()?.accessToken;
-};
-export const getRefreshToken = () => {
-  return getUser()?.refreshToken;
-};
+export function getAccessToken() {
+  return getUser()?.accessToken
+}
+export function getRefreshToken() {
+  return getUser()?.refreshToken
+}
 
-export const saveUser = (user) => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem(USER, JSON.stringify(user));
-  }
-};
+export function saveUser(user) {
+  if (typeof window !== 'undefined')
+    localStorage.setItem(USER, JSON.stringify(user))
+}
 
-export const destroyUser = () => {
-  if (typeof window !== "undefined") {
-    localStorage.removeItem(USER);
-  }
-};
+export function destroyUser() {
+  if (typeof window !== 'undefined')
+    localStorage.removeItem(USER)
+}
 
-export default { getUser, saveUser, destroyUser };
+export default { getUser, saveUser, destroyUser }

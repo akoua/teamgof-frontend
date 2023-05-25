@@ -6,21 +6,24 @@
     "dev": "nuxt dev --port=4200",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
-  },
-  "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.6.7",
-    "@types/node": "^18",
-    "daisyui": "^2.51.6",
-    "nuxt": "^3.4.3",
-    "nuxt-icon": "^0.4.0"
-  },
-  "overrides": {
-    "vue": "latest"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint . --fix"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.10",
     "axios": "^1.4.0",
     "pinia": "^2.0.36"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.39.3",
+    "@nuxtjs/tailwindcss": "^6.6.7",
+    "@types/node": "^18",
+    "daisyui": "^2.51.6",
+    "eslint": "^8.41.0",
+    "nuxt": "^3.4.3",
+    "nuxt-icon": "^0.4.0"
+  },
+  "overrides": {
+    "vue": "latest"
   }
 }

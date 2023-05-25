@@ -1,17 +1,17 @@
-<template>
-  <SigninContent />
-</template>
-
 <script lang="ts">
 export default defineComponent({
   setup() {
     useHead({
-      title: "Connexion",
-    });
+      title: 'Connexion',
+    })
 
     definePageMeta({
-      layout: "register",
-    });
+      layout: 'register',
+    })
   },
-});
+})
 </script>
+
+<template>
+  <SigninContent />
+</template>

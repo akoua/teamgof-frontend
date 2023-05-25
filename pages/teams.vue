@@ -1,6 +1,31 @@
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { mapActions, mapState } from 'pinia'
+import { useTeamsStore } from '~/stores/teams'
+
+export default defineComponent({
+  setup() {
+    useHead({
+      title: 'Équipes',
+    })
+  },
+  computed: {
+    ...mapState(useTeamsStore, ['allTeams', 'loading']),
+  },
+  methods: {
+    ...mapActions(useTeamsStore, ['fetchAllTeams']),
+  },
+  created() {
+    this.fetchAllTeams()
+  },
+})
+</script>
+
 <template>
   <div class="md:px-20 w-full mt-4">
-    <h1 class="font-extrabold uppercase text-3xl">Les équipes</h1>
+    <h1 class="font-extrabold uppercase text-3xl">
+      Les équipes
+    </h1>
     <h2 class="mt-1">
       Explorez notre catalogue d'équipes pour trouver celle qui vous convient le
       mieux
@@ -11,8 +36,8 @@
       </div>
       <template v-else>
         <div
-          class="flex flex-col md:flex-row w-full"
           v-if="allTeams.length > 0"
+          class="flex flex-col md:flex-row w-full"
         >
           <div class="w-full md:w-1/6 md:pr-4 mb-4 md:mb-0">
             <TheFilterBar />
@@ -21,7 +46,7 @@
             <div
               class="grid grid-cols-1 md:grid-cols-3 md:gap-3 gap-y-8 place-items-center w-full"
             >
-              <VTeamCard :key="team.id" v-for="team in allTeams" :team="team" />
+              <VTeamCard v-for="team in allTeams" :key="team.id" :team="team" />
             </div>
           </div>
         </div>
@@ -33,35 +58,14 @@
             <p class="text-gray-500 text-center mb-8">
               Pourquoi ne pas créer votre propre équipe dès maintenant ?
             </p>
-            <NuxtLink to="#" class="btn btn-primary">Créer une équipe</NuxtLink>
+            <NuxtLink to="#" class="btn btn-primary">
+              Créer une équipe
+            </NuxtLink>
           </div>
         </template>
       </template>
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useTeamsStore } from "~/stores/teams";
-import { mapState, mapActions } from "pinia";
-
-export default defineComponent({
-  setup() {
-    useHead({
-      title: "Équipes",
-    });
-  },
-  computed: {
-    ...mapState(useTeamsStore, ["allTeams", "loading"]),
-  },
-  methods: {
-    ...mapActions(useTeamsStore, ["fetchAllTeams"]),
-  },
-  created() {
-    this.fetchAllTeams();
-  },
-});
-</script>
 
 <style scoped></style>

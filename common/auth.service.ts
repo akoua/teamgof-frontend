@@ -1,42 +1,42 @@
-import instance from "~/common/axios";
+import instance from '~/common/axios'
 
 class AuthService {
   async refreshToken(refreshToken: string): Promise<string> {
-    var accessToken = "";
+    let accessToken = ''
     await instance
-      .post("/token/refreshToken", {
-        refreshToken: refreshToken,
+      .post('/token/refreshToken', {
+        refreshToken,
       })
       .then((result) => {
-        accessToken = result.data.data.accessToken;
+        accessToken = result.data.data.accessToken
       })
       .catch((error) => {
-        console.error(error);
-      });
-    return accessToken;
+        console.error(error)
+      })
+    return accessToken
   }
 
   async login(email: string, password: string): Promise<UserData | null> {
-    let userData = null;
+    let userData = null
     await instance
       .post(
-        "/login/sign-in",
+        '/login/sign-in',
         { email },
         {
           auth: {
             username: email,
-            password: password,
+            password,
           },
-        }
+        },
       )
       .then((result) => {
-        userData = result.data.data;
+        userData = result.data.data
       })
       .catch((error) => {
-        console.error(error);
-      });
-    return userData;
+        console.error(error)
+      })
+    return userData
   }
 }
 
-export default new AuthService();
+export default new AuthService()

@@ -1,13 +1,51 @@
+<script>
+import { defineComponent } from 'vue'
+import SignupStep1 from '@/components/Signup/Step1.vue'
+import SignupStep2 from '@/components/Signup/Step2.vue'
+import SignupStep3 from '@/components/Signup/Step3.vue'
+
+export default defineComponent({
+  components: {
+    SignupStep1,
+    SignupStep2,
+    SignupStep3,
+  },
+  data() {
+    return {
+      /* For step Navigation */
+      currentStep: 0,
+      steps: [
+        {
+          component: 'SignupStep1',
+        },
+        {
+          component: 'SignupStep2',
+        },
+        {
+          component: 'SignupStep3',
+        },
+      ],
+    }
+  },
+  computed: {
+    currentStepComponent() {
+      return this.steps[this.currentStep].component
+    },
+  },
+})
+</script>
+
 <template>
   <div class="flex items-center justify-center bg-base-300">
     <div class="p-8 bg-secondary rounded-md shadow-md">
-      <h1 class="text-3xl font-bold mb-4 color text-center">INSCRIPTION</h1>
+      <h1 class="text-3xl font-bold mb-4 color text-center">
+        INSCRIPTION
+      </h1>
 
       <!-- Step Navigation -->
       <ul class="steps">
         <li
-          :class="[
-            'step',
+          class="step" :class="[
             {
               'step-primary': currentStep === 0,
               'font-bold': currentStep === 0,
@@ -17,8 +55,7 @@
           Informations personnelles
         </li>
         <li
-          :class="[
-            'step',
+          class="step" :class="[
             {
               'step-primary': currentStep === 1,
               'font-bold': currentStep === 1,
@@ -28,8 +65,7 @@
           Informations de connexion
         </li>
         <li
-          :class="[
-            'step',
+          class="step" :class="[
             {
               'step-primary': currentStep === 2,
               'font-bold': currentStep === 2,
@@ -51,59 +87,23 @@
         <div class="flex justify-center items-center space-x-4">
           <button
             v-show="!(currentStep === 0)"
-            @click="currentStep--"
             class="btn"
+            @click="currentStep--"
           >
             Précédent
           </button>
-          <button @click="currentStep++" class="btn btn-primary">
+          <button class="btn btn-primary" @click="currentStep++">
             {{ currentStep === steps.length - 1 ? "Terminer" : "Suivant" }}
           </button>
         </div>
 
         <div class="flex justify-center space-x-2 mt-4">
           <div>J'ai déjà un compte ?</div>
-          <NuxtLink class="text-primary" to="/sign-in">Connexion</NuxtLink>
+          <NuxtLink class="text-primary" to="/sign-in">
+            Connexion
+          </NuxtLink>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script>
-import SignupStep1 from "@/components/Signup/Step1.vue";
-import SignupStep2 from "@/components/Signup/Step2.vue";
-import SignupStep3 from "@/components/Signup/Step3.vue";
-
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  components: {
-    SignupStep1,
-    SignupStep2,
-    SignupStep3,
-  },
-  data() {
-    return {
-      /* For step Navigation */
-      currentStep: 0,
-      steps: [
-        {
-          component: "SignupStep1",
-        },
-        {
-          component: "SignupStep2",
-        },
-        {
-          component: "SignupStep3",
-        },
-      ],
-    };
-  },
-  computed: {
-    currentStepComponent() {
-      return this.steps[this.currentStep].component;
-    },
-  },
-});
-</script>

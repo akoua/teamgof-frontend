@@ -1,20 +1,20 @@
-<template>
-    <div class="form-control mb-2">
-        <label class="label"> Nom : </label>
-        <input type="text" placeholder="Nom*" name="lastname" class="input input-bordered w-full text-black" />
-    </div>
-    <div class="form-control  mb-2">
-        <label class="label"> Prénom : </label>
-        <input type="text" placeholder="Prénom*" name="firstname" class="input input-bordered w-full text-black" />
-    </div>
-    <div class="form-control  mb-2">
-        <label class="label"> Localisation : </label>
-        <input type="text" placeholder="Localisation*" name="localisation" class="input input-bordered w-full text-black" />
-    </div>
-</template>
-
 <script lang="ts">
-    export default defineComponent({
-        name: "SignupStep1"
-    });
+export default defineComponent({
+  name: 'SignupStep1',
+})
 </script>
+
+<template>
+  <div class="form-control mb-2">
+    <label class="label"> Nom : </label>
+    <input type="text" placeholder="Nom*" name="lastname" class="input input-bordered w-full text-black">
+  </div>
+  <div class="form-control  mb-2">
+    <label class="label"> Prénom : </label>
+    <input type="text" placeholder="Prénom*" name="firstname" class="input input-bordered w-full text-black">
+  </div>
+  <div class="form-control  mb-2">
+    <label class="label"> Localisation : </label>
+    <input type="text" placeholder="Localisation*" name="localisation" class="input input-bordered w-full text-black">
+  </div>
+</template>

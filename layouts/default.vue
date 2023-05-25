@@ -1,3 +1,13 @@
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup() {
+    return {}
+  },
+})
+</script>
+
 <template>
   <div class="wrapper">
     <ClientOnly>
@@ -10,16 +20,6 @@
     <TheTeamModal />
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  setup() {
-    return {};
-  },
-});
-</script>
 
 <style scoped>
 .wrapper {

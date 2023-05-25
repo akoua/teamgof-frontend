@@ -1,3 +1,14 @@
+<script lang="ts">
+import { mapState } from 'pinia'
+import { useAuthStore } from '~/stores/auth'
+
+export default defineComponent({
+  computed: {
+    ...mapState(useAuthStore, ['isAuthenticated', 'connectedUser']),
+  },
+})
+</script>
+
 <template>
   <nav>
     <div class="navbar bg-base-100 md:px-20">
@@ -24,22 +35,32 @@
             class="menu menu-compact dropdown-content mt-3 shadow bg-base-100 rounded-box w-52"
           >
             <li class="font-bold uppercase">
-              <NuxtLink to="/teams">équipes</NuxtLink>
+              <NuxtLink to="/teams">
+                équipes
+              </NuxtLink>
             </li>
             <li class="font-bold uppercase">
-              <NuxtLink to="/sign-up">inscription</NuxtLink>
+              <NuxtLink to="/sign-up">
+                inscription
+              </NuxtLink>
             </li>
             <li class="font-bold uppercase">
-              <NuxtLink to="/sign-in">connexion</NuxtLink>
+              <NuxtLink to="/sign-in">
+                connexion
+              </NuxtLink>
             </li>
           </ul>
         </div>
-        <NuxtLink to="/" class="text-2xl font-extrabold">TEAMGOF</NuxtLink>
+        <NuxtLink to="/" class="text-2xl font-extrabold">
+          TEAMGOF
+        </NuxtLink>
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
           <li class="font-bold uppercase">
-            <NuxtLink to="/teams">équipes</NuxtLink>
+            <NuxtLink to="/teams">
+              équipes
+            </NuxtLink>
           </li>
         </ul>
       </div>
@@ -59,13 +80,3 @@
     </div>
   </nav>
 </template>
-
-<script lang="ts">
-import { useAuthStore } from "~/stores/auth";
-import { mapState } from "pinia";
-export default defineComponent({
-  computed: {
-    ...mapState(useAuthStore, ["isAuthenticated", "connectedUser"]),
-  },
-});
-</script>

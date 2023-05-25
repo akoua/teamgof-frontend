@@ -2,13 +2,13 @@
 export default defineNuxtConfig({
   nitro: {
     devProxy: {
-      "/api": {
-        target: "http://194.163.158.136:8081/api/v1",
+      '/api': {
+        target: 'http://194.163.158.136:8081/api/v1',
         changeOrigin: true,
         prependPath: true,
       },
     },
   },
-  css: ["@/assets/css/main.css"],
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@pinia/nuxt"],
-});
+  css: ['@/assets/css/main.css'],
+  modules: ['@nuxtjs/tailwindcss', 'nuxt-icon', '@pinia/nuxt'],
+})

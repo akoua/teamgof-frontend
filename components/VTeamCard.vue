@@ -1,23 +1,48 @@
+<script lang="ts">
+import { mapActions } from 'pinia'
+import { defineComponent } from 'vue'
+import type Team from '~/models/team.model'
+import { useTeamsStore } from '~/stores/teams'
+
+export default defineComponent({
+  props: {
+    team: {
+      type: Object as PropType<Team>,
+      required: true,
+    },
+    fixedWidth: {
+      type: Boolean,
+    },
+  },
+  methods: {
+    ...mapActions(useTeamsStore, ['setSelectedTeam']),
+    handleShowMore() {
+      this.setSelectedTeam(this.team)
+    },
+  },
+})
+</script>
+
 <template>
-  <VCard :fixedWidth="fixedWidth">
-    <template v-slot:card-image>
+  <VCard :fixed-width="fixedWidth">
+    <template #card-image>
       <div class="w-full h-20">
         <img
+          v-if="team.imageUrl"
           :src="team.imageUrl"
           :alt="`${team.name}-image`"
-          v-if="team.imageUrl"
           class="w-full h-full object-cover"
-        />
+        >
         <template v-else>
           <img
             src="@/assets/images/no-image.png"
             alt="no-image"
             class="w-full h-full object-contain"
-          />
+          >
         </template>
       </div>
     </template>
-    <template v-slot:card-body>
+    <template #card-body>
       <div>
         <Icon name="fe:medal" />
         <span class="text-xs ml-1">
@@ -48,37 +73,10 @@
       </div>
       <p>{{ team.description }}</p>
     </template>
-    <template v-slot:card-button>
-      <label for="teamModal" class="btn btn-link" @click="handleShowMore"
-        >Voir Plus</label
-      >
+    <template #card-button>
+      <label for="teamModal" class="btn btn-link" @click="handleShowMore">Voir Plus</label>
     </template>
   </VCard>
 </template>
-
-<script lang="ts">
-import Team from "~/models/team.model";
-import { mapActions } from "pinia";
-import { useTeamsStore } from "~/stores/teams";
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  props: {
-    team: {
-      type: Object as PropType<Team>,
-      required: true,
-    },
-    fixedWidth: {
-      type: Boolean,
-    },
-  },
-  methods: {
-    ...mapActions(useTeamsStore, ["setSelectedTeam"]),
-    handleShowMore() {
-      this.setSelectedTeam(this.team);
-    },
-  },
-});
-</script>
 
 <style scoped></style>

@@ -1,10 +1,8 @@
-<template>
-
-</template>
-
 <script lang="ts">
 
 </script>
+
+<template />
 
 <style scoped>
 
