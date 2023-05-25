@@ -6,28 +6,34 @@
       mieux
     </h2>
     <label
-      v-if="allTeams.length > 0 && isAuthenticated"
+      v-if="filteredTeams.length > 0 && isAuthenticated"
       for="teamcreate"
       class="btn btn-primary my-4"
       >Créer une Equipe</label
     >
-    <div class="flex flex-col items-center my-12 w-full">
+    <div class="flex flex-col items-center mt-2 mb-12 w-full">
       <div v-if="isLoading">
         <p>Chargement...</p>
       </div>
       <template v-else>
         <div
           class="flex flex-col md:flex-row w-full"
-          v-if="allTeams.length > 0"
+          v-if="filteredTeams.length > 0"
         >
           <div class="w-full md:w-1/6 md:pr-4 mb-4 md:mb-0">
-            <TheFilterBar />
+            <TheFiltersBar />
           </div>
-          <div class="flex flex-col items-center w-full md:w-5/6">
+          <div
+            class="flex flex-col items-center w-full md:w-5/6 bg-gray-200 p-6 rounded"
+          >
             <div
               class="grid grid-cols-1 md:grid-cols-3 md:gap-3 gap-y-8 place-items-center w-full"
             >
-              <VTeamCard :key="team.id" v-for="team in allTeams" :team="team" />
+              <VTeamCard
+                :key="team.id"
+                v-for="team in filteredTeams"
+                :team="team"
+              />
             </div>
           </div>
         </div>
@@ -64,7 +70,7 @@ export default defineComponent({
     });
   },
   computed: {
-    ...mapState(useTeamsStore, ["allTeams", "isLoading"]),
+    ...mapState(useTeamsStore, ["filteredTeams", "isLoading"]),
     ...mapState(useAuthStore, ["isAuthenticated"]),
   },
   methods: {

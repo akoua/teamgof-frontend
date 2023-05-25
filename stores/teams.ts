@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import Team from "~/models/team.model";
-import { useFiltersStore } from "./filters";
+import { useFilterStore } from "./filter";
 import instance from "~/common/axios";
 import teamService from "~/common/team.service";
 import TeamCreate from "~/models/team.create.model";
@@ -19,34 +19,74 @@ export const useTeamsStore = defineStore("teams", {
   getters: {
     selectedTeam: (state) => state.team,
     isLoading: (state) => state.loading,
-    allTeams: (state) => {
-      const filtersStore = useFiltersStore();
-      const { levels, locations, motivations } = filtersStore;
+    allLevels: (state) => {
+      const levelsSet = new Set<string>();
+      state.teams.forEach((team) => {
+        team.epreuves.forEach((epreuve) => {
+          epreuve.championshipNames.forEach((championship) => {
+            levelsSet.add(championship);
+          });
+        });
+      });
+      return Array.from(levelsSet);
+    },
+    allLocations: (state) => {
+      const locationsSet = new Set<string>();
+      state.teams.forEach((team) => {
+        locationsSet.add(team.departement);
+      });
+      return Array.from(locationsSet);
+    },
+    allMotivations: (state) => {
+      const motivationsSet = new Set<string>();
+      state.teams.forEach((team) => {
+        motivationsSet.add(team.motivation);
+      });
+      return Array.from(motivationsSet);
+    },
+    filteredTeams: (state) => {
+      const filterStore = useFilterStore();
+      const { selectedLevels, selectedLocations, selectedMotivations } =
+        filterStore;
 
-      // Filter teams based on the selected filters
       const filteredTeams = state.teams.filter((team) => {
-        // Check if any of the team's championship names match the selected levels
         const isLevelMatched =
-          levels.length === 0 ||
-          levels.some((level) =>
-            team.epreuves.some((championship) =>
-              championship.championshipNames.includes(level)
+          selectedLevels.length === 0 ||
+          selectedLevels.some((level) =>
+            team.epreuves.some((epreuve) =>
+              epreuve.championshipNames.includes(level)
             )
           );
 
-        // Check if the team's location is included in the selected locations
         const isLocationMatched =
-          locations.length === 0 || locations.includes(team.departement);
+          selectedLocations.length === 0 ||
+          selectedLocations.includes(team.departement);
 
-        // Check if the team's motivation is included in the selected motivations
         const isMotivationMatched =
-          motivations.length === 0 || motivations.includes(team.motivation);
+          selectedMotivations.length === 0 ||
+          selectedMotivations.includes(team.motivation);
 
-        // Return true if all filters match, false otherwise
         return isLevelMatched && isLocationMatched && isMotivationMatched;
       });
 
       return filteredTeams;
+    },
+    getFilteredTeams: (state) => (filters: any) => {
+      return state.teams.filter((team) => {
+        const levelMatch =
+          filters.levels.length === 0 ||
+          team.epreuves.some((epreuve) =>
+            filters.levels.includes(epreuve.discipline)
+          );
+        const locationMatch =
+          filters.locations.length === 0 ||
+          filters.locations.includes(team.departement);
+        const motivationMatch =
+          filters.motivations.length === 0 ||
+          filters.motivations.includes(team.motivation);
+
+        return levelMatch && locationMatch && motivationMatch;
+      });
     },
   },
   actions: {
