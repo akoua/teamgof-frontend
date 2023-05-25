@@ -24,7 +24,7 @@
             class="menu menu-compact dropdown-content mt-3 shadow bg-base-100 rounded-box w-52"
           >
             <li class="font-bold uppercase">
-              <NuxtLink to="/teams">équipes</NuxtLink>
+              <NuxtLink to="/teams">les équipes</NuxtLink>
             </li>
             <li class="font-bold uppercase">
               <NuxtLink to="/sign-up">inscription</NuxtLink>
@@ -36,25 +36,21 @@
         </div>
         <NuxtLink to="/" class="text-2xl font-extrabold">TEAMGOF</NuxtLink>
       </div>
-      <div class="navbar-center hidden lg:flex">
+      <div class="navbar-end invisible md:visible">
         <ul class="menu menu-horizontal px-1">
           <li class="font-bold uppercase">
-            <NuxtLink to="/teams">équipes</NuxtLink>
+            <NuxtLink to="/teams">les équipes</NuxtLink>
+          </li>
+          <li class="font-bold uppercase" v-if="!isAuthenticated">
+            <NuxtLink to="/sign-in"> Connexion </NuxtLink>
           </li>
         </ul>
-      </div>
-      <div class="navbar-end invisible md:visible">
         <div v-if="!isAuthenticated">
-          <NuxtLink to="/sign-in" class="btn btn-secondary">
-            Connexion
-          </NuxtLink>
           <NuxtLink to="/sign-up" class="ml-4 btn btn-primary">
             Inscription
           </NuxtLink>
         </div>
-        <template v-else>
-          <TheUserDropdown />
-        </template>
+        <TheUserDropdown v-if="isAuthenticated" />
       </div>
     </div>
   </nav>

@@ -1,7 +1,7 @@
 <template>
   <TheHeroSection />
-  <TheAboutSection />
   <TheTeamShowcaseSection />
+  <TheAboutSection />
 </template>
 
 <script setup lang="ts">
