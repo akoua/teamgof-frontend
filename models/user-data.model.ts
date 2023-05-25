@@ -12,5 +12,6 @@ interface UserData {
         riderScore: number;
       }
     ];
+    location: string;
   };
 }

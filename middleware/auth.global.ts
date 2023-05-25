@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
   authStore.checkAuth();
   let isAuthenticated = authStore.isAuthenticated;
 
-  if (to.path === "/protected") {
+  if (to.path === "/protected" || to.path === "/my-account") {
     if (!isAuthenticated) {
       return navigateTo("/sign-in");
     }

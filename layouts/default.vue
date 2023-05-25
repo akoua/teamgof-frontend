@@ -7,7 +7,7 @@
       <slot />
     </main>
     <TheFooter />
-    <TheTeamCreateModal/>
+    <TheTeamCreateModal />
     <TheTeamModal />
   </div>
 </template>

@@ -11,7 +11,7 @@
         tabindex="0"
         class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4"
       >
-        <li><NuxtLink to="#">Mon compte</NuxtLink></li>
+        <li><NuxtLink to="/my-account">Mon compte</NuxtLink></li>
         <li><NuxtLink to="#" @click="handleLogout()">Déconnexion</NuxtLink></li>
       </ul>
     </div>

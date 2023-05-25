@@ -1,10 +1,9 @@
 <template>
   <div class="md:px-4 w-full mt-4">
-    <h1 class="font-extrabold uppercase text-3xl">Les équipes</h1>
-    <h2 class="mt-1">
-      Explorez notre catalogue d'équipes pour trouver celle qui vous convient le
-      mieux
-    </h2>
+    <ThePageTitle
+      title="Les équipes"
+      sub-title="Explorez notre catalogue d'équipes pour trouver celle qui vous convient le mieux"
+    />
     <label
       v-if="filteredTeams.length > 0 && isAuthenticated"
       for="teamcreate"
