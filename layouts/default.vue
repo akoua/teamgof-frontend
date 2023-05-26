@@ -1,10 +1,13 @@
 <template>
   <div class="wrapper">
-    <TheHeader />
+    <ClientOnly>
+      <TheHeader />
+    </ClientOnly>
     <main>
       <slot />
     </main>
     <TheFooter />
+    <TheTeamCreateModal/>
     <TheTeamModal />
   </div>
 </template>

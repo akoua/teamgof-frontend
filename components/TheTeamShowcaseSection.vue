@@ -1,5 +1,11 @@
 <template>
-  <div class="py-20 flex flex-col justify-center items-center">
+  <div
+    class="py-20 flex flex-col justify-center items-center"
+    v-if="teams.length > 0"
+  >
+    <p class="text-lg font-bold">
+      Opportunités d'équipe récentes : Rejoignez des passionnés dès maintenant !
+    </p>
     <div
       class="grid grid-cols-1 md:grid-cols-2 md:gap-2 gap-y-8 place-items-center w-full"
     >
@@ -10,9 +16,6 @@
         :fixedWidth="true"
       />
     </div>
-    <NuxtLink to="/teams">
-      <button class="btn btn-primary mt-12">Voir Plus D’équipes</button>
-    </NuxtLink>
   </div>
 </template>
 

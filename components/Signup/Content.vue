@@ -8,14 +8,44 @@
     <div class="p-8 bg-secondary rounded-md shadow-md">
       
       <h1 class="text-3xl font-bold mb-4 color text-center">INSCRIPTION</h1>
-      
+
       <!-- Step Navigation -->
       <ul class="steps">
-        <li :class="['step', { 'step-primary': (currentStep===0), 'font-bold': (currentStep===0) }]">Informations personnelles</li>
-        <li :class="['step', { 'step-primary': (currentStep===1), 'font-bold': (currentStep===1) }]">Informations de connexion</li>
-        <li :class="['step', { 'step-primary': (currentStep===2), 'font-bold': (currentStep===2) }]">Mes qualifications</li>
+        <li
+          :class="[
+            'step',
+            {
+              'step-primary': currentStep === 0,
+              'font-bold': currentStep === 0,
+            },
+          ]"
+        >
+          Informations personnelles
+        </li>
+        <li
+          :class="[
+            'step',
+            {
+              'step-primary': currentStep === 1,
+              'font-bold': currentStep === 1,
+            },
+          ]"
+        >
+          Informations de connexion
+        </li>
+        <li
+          :class="[
+            'step',
+            {
+              'step-primary': currentStep === 2,
+              'font-bold': currentStep === 2,
+            },
+          ]"
+        >
+          Mes qualifications
+        </li>
       </ul>
-          
+
       <!-- Content -->
       <div class="flex flex-col">
         <div class="mt-7 mb-10 justify-center">
@@ -99,7 +129,7 @@
             
           </form>
         </div>
-        
+
         <div class="flex justify-center items-center space-x-4">
           <button v-show="!(currentStep === 0)" @click="goToPrevious" class="btn">
             Précédent
@@ -109,10 +139,14 @@
             <div v-else="loading">{{ (currentStep === 2) ? "Terminer" : "Suivant" }}</div>
           </button>
         </div>
+
+        <div class="flex justify-center space-x-2 mt-4">
+          <div>J'ai déjà un compte ?</div>
+          <NuxtLink class="text-primary" to="/sign-in">Connexion</NuxtLink>
+        </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -260,9 +294,7 @@ export default defineComponent({
         this.handleStep3Value();
       }
     },
-  }
+  },
 });
 
 </script>
-
-

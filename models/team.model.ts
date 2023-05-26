@@ -1,18 +1,23 @@
 interface Team {
-  id: number;
-  title: string;
-  level: string;
-  location: string;
-  imageUrl: string;
+  id?: number;
+  name: string;
   description: string;
   motivation: string;
-  members: Array<TeamMember>;
+  departement: string;
+  imageUrl?: string;
+  members?: Array<TeamMember>;
+  epreuves: Array<TeamChampionship>;
 }
 
-interface TeamMember {
+export interface TeamMember {
   firstName: string;
   lastName: string;
-  ffeNumber: string;
+  ffe: string;
+}
+
+interface TeamChampionship {
+  discipline: string;
+  championshipNames: Array<string>;
 }
 
 export default Team;

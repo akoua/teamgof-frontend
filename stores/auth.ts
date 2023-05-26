@@ -1,34 +1,49 @@
 import { defineStore } from "pinia";
 import { useAxios } from "~/composables/useAxios";
+import instance from "~/common/axios";
 
+import authService from "~/common/auth.service";
+import { saveUser, destroyUser, getUser } from "@/common/localstorage.service";
 export interface AuthState {
-  user: any,
-  result: any
+  userData: UserData | null;
+  loading: boolean;
+  result: any;
 }
-
-let axios = useAxios();
 
 export const useAuthStore = defineStore("auth", {
   state: (): AuthState => ({
-    user: null,
-    result: { success: false, data: null }
+    userData: null,
+    loading: false,
+     result: { success: false, data: null }
   }),
+  getters: {
+    isAuthenticated: (state) => !!state.userData,
+    connectedUser: (state) => state.userData?.user,
+    isLoading: (state) => state.loading,
+  },
   actions: {
+    checkAuth(): void {
+      const user = getUser();
+      if (user) {
+        this.userData = user;
+      }
+    },
     async login(email: string, password: string): Promise<void> {
-      await axios
-        .post(
-          "/login/sign-in",
-          { email },
-          {
-            auth: {
-              username: email,
-              password: password,
-            },
-          }
-        )
+      this.userData = null;
+      this.loading = true;
+      await authService
+        .login(email, password)
         .then((result) => {
-          console.log(result.data);
+          this.userData = result;
+          saveUser(this.userData);
+        })
+        .finally(() => {
+          this.loading = false;
         });
+    },
+    logout() {
+      this.userData = null;
+      destroyUser();
     },
     async signup(data : FormData): Promise<void> {
       await axios
