@@ -34,7 +34,9 @@
       </div>
       <div>
         <Icon name="fe:flag" />
-        <span class="text-xs ml-1">{{ team.motivation }}</span>
+        <span class="text-xs ml-1">{{
+          $getMotivationValue(team.motivation)
+        }}</span>
       </div>
       <div class="flex justify-between items-center">
         <h2 class="card-title">
