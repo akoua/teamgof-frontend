@@ -42,7 +42,6 @@
           class="select select-bordered w-full"
           required
         >
-          <option disabled required></option>
           <option :value="discipline" v-for="discipline in allDisciplines">
             {{ discipline.disciplineName }}
           </option>
@@ -58,7 +57,6 @@
           class="select select-bordered w-full"
           multiple
         >
-          <option disabled selected></option>
           <option
             v-for="championship in discipline?.championships"
             :value="championship.championshipId"
@@ -79,29 +77,31 @@
           class="select select-bordered w-full"
           required
         >
-          <option selected disabled></option>
-          <option value="DECOUVERTE">Decouverte</option>
-          <option value="Convivialité et plaisir">
-            Convivialité et plaisir
+          <option :value="CONVIVIALITY">
+            {{ CONVIVIALITY }}
           </option>
-          <option value="Défis et progression">Défis et progression</option>
-          <option value="Esprit d'équipe et compétition">
-            Esprit d'équipe et compétition
-          </option>
+          <option :value="CHALLENGE">{{ CHALLENGE }}</option>
+          <option :value="TEAM_SPIRIT">{{ TEAM_SPIRIT }}</option>
         </select>
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="location"
           >Localisation</label
         >
-        <input
+        <select
           v-model="location"
           id="location"
-          type="text"
-          class="input input-bordered w-full"
-          placeholder="Département"
+          class="select select-bordered w-full"
           required
-        />
+        >
+          <option
+            :key="index"
+            :value="departement"
+            v-for="(departement, index) in DEPARTEMENTS"
+          >
+            {{ departement }}
+          </option>
+        </select>
       </div>
       <button
         type="submit"
@@ -119,6 +119,9 @@ import { useDisciplinesStore } from "~/stores/disciplines";
 import { useTeamsStore } from "~/stores/teams";
 import Discipline from "@/models/discipline.model";
 import { VModal } from "~/.nuxt/components";
+
+import MOTIVATION_TYPES from "~/constants/motivationTypes";
+import DEPARTEMENTS from "@/constants/departements";
 export default defineComponent({
   async setup() {
     let modal = ref<InstanceType<typeof VModal>>();
@@ -126,9 +129,12 @@ export default defineComponent({
     let closeChildModal = async () => {
       await modal.value?.closeModal();
     };
+    const { $getMotivationKey } = useNuxtApp();
+
     return {
       modal,
       closeChildModal,
+      getMotivationKey: $getMotivationKey,
     };
   },
   data() {
@@ -136,9 +142,13 @@ export default defineComponent({
       title: "",
       description: "",
       location: "",
-      motivation: "DECOUVERTE",
+      motivation: MOTIVATION_TYPES.CONVIVIALITY,
       discipline: null as Discipline | null,
       championships: [] as Array<number>,
+      CONVIVIALITY: MOTIVATION_TYPES.CONVIVIALITY,
+      CHALLENGE: MOTIVATION_TYPES.CHALLENGE,
+      TEAM_SPIRIT: MOTIVATION_TYPES.TEAM_SPIRIT,
+      DEPARTEMENTS: DEPARTEMENTS,
     };
   },
   computed: {
@@ -161,7 +171,7 @@ export default defineComponent({
         let team = {
           name: this.title,
           description: this.description,
-          motivation: this.motivation,
+          motivation: this.getMotivationKey(this.motivation)!,
           departement: this.location,
           championshipIds: this.championships,
           members: [],
@@ -171,6 +181,14 @@ export default defineComponent({
         });
       }
     },
+  },
+  mounted() {
+    if (this.allDisciplines.length > 0) {
+      this.discipline = this.allDisciplines[0];
+    }
+    if (this.DEPARTEMENTS.length > 0) {
+      this.location = this.DEPARTEMENTS[0];
+    }
   },
 });
 </script>

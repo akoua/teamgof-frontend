@@ -33,7 +33,9 @@
       </div>
       <div class="mt-4">
         <Icon name="fe:flag" />
-        <span class="text-sm ml-1">{{ selectedTeam.motivation }}</span>
+        <span class="text-sm ml-1">{{
+          $getMotivationValue(selectedTeam.motivation)
+        }}</span>
       </div>
       <div class="flex justify-between items-center mt-4">
         <h2 class="font-bold text-2xl">

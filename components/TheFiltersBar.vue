@@ -45,7 +45,7 @@
               v-model="selectedFilters.motivations"
               @change="updateFilters"
             />
-            {{ motivation }}
+            {{ $getMotivationValue(motivation) }}
           </label>
         </li>
       </ul>
