@@ -32,7 +32,12 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="flex items-center justify-center bg-base-300 w-1/3">
+  <div class="flex flex-col items-center justify-center bg-base-300">
+
+     <template v-if="$route.params.success">
+        <AlertSucces :message="$route.params.data" />
+     </template>
+
     <div class="p-8 bg-secondary rounded-md shadow-md w-full">
       <div class="flex flex-col mb-5">
         <h1 class="text-3xl font-bold color text-center">
@@ -106,3 +111,40 @@ export default defineComponent({
     </div>
   </div>
 </template>
+<<<<<<< HEAD
+=======
+
+<script lang="ts">
+import { useAuthStore } from "@/stores/auth";
+import { mapActions, mapState } from "pinia";
+
+export default defineComponent({
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  computed: {
+    ...mapState(useAuthStore, ["connectedUser", "isLoading"]),
+  },
+  methods: {
+    ...mapActions(useAuthStore, ["login"]),
+    async handleLogin() {
+      if (!this.email || !this.password) {
+        alert(
+          "Veuillez entrer votre adresse e-mail et votre mot de passe pour vous connecter."
+        );
+      } else {
+        await this.login(this.email, this.password).finally(async () => {
+          if (this.connectedUser) {
+            await navigateTo("/protected");
+          }
+        });
+      }
+    },
+  },
+});
+</script>
+
+>>>>>>> cd4e6ee175a5977f6f3cf2672e08e140932c5a3b

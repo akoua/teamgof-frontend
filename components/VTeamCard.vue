@@ -24,9 +24,15 @@ export default defineComponent({
 </script>
 
 <template>
+<<<<<<< HEAD
   <VCard :fixed-width="fixedWidth">
     <template #card-image>
       <div class="w-full h-20">
+=======
+  <VCard :fixedWidth="fixedWidth">
+    <template v-slot:card-image>
+      <div class="w-full h-20 mt-6">
+>>>>>>> cd4e6ee175a5977f6f3cf2672e08e140932c5a3b
         <img
           v-if="team.imageUrl"
           :src="team.imageUrl"
@@ -59,7 +65,9 @@ export default defineComponent({
       </div>
       <div>
         <Icon name="fe:flag" />
-        <span class="text-xs ml-1">{{ team.motivation }}</span>
+        <span class="text-xs ml-1">{{
+          $getMotivationValue(team.motivation)
+        }}</span>
       </div>
       <div class="flex justify-between items-center">
         <h2 class="card-title">
@@ -67,7 +75,7 @@ export default defineComponent({
         </h2>
         <span>
           <Icon name="fe:users" /><span class="ml-2 text-sm">{{
-            `${team.members.length}/5`
+            `${team.members?.length}/5`
           }}</span>
         </span>
       </div>

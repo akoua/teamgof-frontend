@@ -6,8 +6,8 @@ useHead({
 
 <template>
   <TheHeroSection />
-  <TheAboutSection />
   <TheTeamShowcaseSection />
+  <TheAboutSection />
 </template>
 
 <style scoped></style>

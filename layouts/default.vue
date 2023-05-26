@@ -17,6 +17,7 @@ export default defineComponent({
       <slot />
     </main>
     <TheFooter />
+    <TheTeamCreateModal/>
     <TheTeamModal />
   </div>
 </template>

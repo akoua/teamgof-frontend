@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
 export default defineNuxtConfig({
   nitro: {
     devProxy: {
@@ -9,6 +10,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  css: ['@/assets/css/main.css'],
-  modules: ['@nuxtjs/tailwindcss', 'nuxt-icon', '@pinia/nuxt'],
-})
+  css: ["@/assets/css/main.css"],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@pinia/nuxt"],
+  
+});

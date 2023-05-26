@@ -45,7 +45,9 @@ export default defineComponent({
       </div>
       <div class="mt-4">
         <Icon name="fe:flag" />
-        <span class="text-sm ml-1">{{ selectedTeam.motivation }}</span>
+        <span class="text-sm ml-1">{{
+          $getMotivationValue(selectedTeam.motivation)
+        }}</span>
       </div>
       <div class="flex justify-between items-center mt-4">
         <h2 class="font-bold text-2xl">
@@ -53,7 +55,7 @@ export default defineComponent({
         </h2>
         <span>
           <Icon name="fe:users" /><span class="ml-2 text-sm">{{
-            `${selectedTeam.members.length}/5`
+            `${selectedTeam.members?.length}/5`
           }}</span>
         </span>
       </div>
@@ -61,10 +63,15 @@ export default defineComponent({
         {{ selectedTeam.description }}
       </p>
       <div class="mt-4">
+<<<<<<< HEAD
         <h3 class="font-bold underline decoration-4">
           Membres Actuels
         </h3>
         <ul class="mt-2">
+=======
+        <h3 class="font-bold underline decoration-4">Membres Actuels</h3>
+        <ul class="mt-2" v-if="selectedTeam.members?.length! > 0">
+>>>>>>> cd4e6ee175a5977f6f3cf2672e08e140932c5a3b
           <li
             v-for="(member, index) in selectedTeam.members"
             :key="index"
@@ -80,6 +87,9 @@ export default defineComponent({
             </span>
           </li>
         </ul>
+        <template v-else>
+          <p class="mt-2">Pas encore de membres</p>
+        </template>
       </div>
     </div>
   </VModal>
