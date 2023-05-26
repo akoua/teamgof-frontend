@@ -16,7 +16,6 @@
           />
         </template>
       </div>
-
       <div class="mt-4">
         <Icon name="fe:medal" />
         <span class="text-xs ml-1">

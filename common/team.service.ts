@@ -4,7 +4,7 @@ import TeamCreate from "~/models/team.create.model";
 
 class TeamService {
   async createTeam(team: TeamCreate): Promise<Team | null> {
-    var teamResult: Team | null = null;
+    let teamResult: Team | null = null;
     await instance
       .post("/team/create", team)
       .then((result) => {
@@ -17,8 +17,8 @@ class TeamService {
   }
 
   async getTeams(): Promise<Array<Team>> {
-    var teams: Array<Team> = [];
-    let end = 24;
+    let teams: Array<Team> = [];
+    const end = 24;
     await instance
       .get("/team/allTeams", {
         params: {

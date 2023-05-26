@@ -2,7 +2,7 @@ import instance from "~/common/axios";
 
 class AuthService {
   async refreshToken(refreshToken: string): Promise<string> {
-    var accessToken = "";
+    let accessToken = "";
     await instance
       .post("/token/refreshToken", {
         refreshToken: refreshToken,

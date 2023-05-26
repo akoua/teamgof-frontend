@@ -1,17 +1,16 @@
 <template>
   <div class="md:px-4 w-full mt-4">
-    <h1 class="font-extrabold uppercase text-3xl">Les équipes</h1>
-    <h2 class="mt-1">
-      Explorez notre catalogue d'équipes pour trouver celle qui vous convient le
-      mieux
-    </h2>
+    <ThePageTitle
+      title="Les équipes"
+      sub-title="Explorez notre catalogue d'équipes pour trouver celle qui vous convient le mieux"
+    />
     <label
       v-if="filteredTeams.length > 0 && isAuthenticated"
       for="teamcreate"
       class="btn btn-primary my-4"
-      >Créer une Equipe</label
+      >Créer Une Equipe</label
     >
-    <div class="flex flex-col items-center mt-2 mb-12 w-full">
+    <div class="flex flex-col items-center mt-8 mb-12 w-full">
       <div v-if="isLoading">
         <p>Chargement...</p>
       </div>
@@ -47,16 +46,17 @@
                 Pourquoi ne pas créer votre propre équipe dès maintenant ?
               </p>
               <label
-                v-if="isAuthenticated"
+                v-show="isAuthenticated"
                 for="teamcreate"
                 class="btn btn-primary"
                 >Créer une Equipe</label
               >
-              <template v-else>
-                <NuxtLink to="/sign-up" class="btn btn-primary"
-                  >Créer une Equipe</NuxtLink
-                >
-              </template>
+              <NuxtLink
+                v-show="!isAuthenticated"
+                to="/sign-up"
+                class="btn btn-primary"
+                >Créer une Equipe</NuxtLink
+              >
             </div>
           </div>
         </template>
@@ -93,5 +93,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped></style>
