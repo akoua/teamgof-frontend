@@ -35,13 +35,7 @@ export default defineComponent({
             class="menu menu-compact dropdown-content mt-3 shadow bg-base-100 rounded-box w-52"
           >
             <li class="font-bold uppercase">
-<<<<<<< HEAD
-              <NuxtLink to="/teams">
-                équipes
-              </NuxtLink>
-=======
               <NuxtLink to="/teams">les équipes</NuxtLink>
->>>>>>> cd4e6ee175a5977f6f3cf2672e08e140932c5a3b
             </li>
             <li class="font-bold uppercase">
               <NuxtLink to="/sign-up">
@@ -62,16 +56,10 @@ export default defineComponent({
       <div class="navbar-end invisible md:visible">
         <ul class="menu menu-horizontal px-1">
           <li class="font-bold uppercase">
-<<<<<<< HEAD
-            <NuxtLink to="/teams">
-              équipes
-            </NuxtLink>
-=======
             <NuxtLink to="/teams">les équipes</NuxtLink>
           </li>
           <li class="font-bold uppercase" v-if="!isAuthenticated">
             <NuxtLink to="/sign-in"> Connexion </NuxtLink>
->>>>>>> cd4e6ee175a5977f6f3cf2672e08e140932c5a3b
           </li>
         </ul>
         <div v-if="!isAuthenticated">

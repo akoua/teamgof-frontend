@@ -13,15 +13,8 @@
           Rencontrez des coéquipiers passionnés, partagez des moments uniques et
           réalisez ensemble de grandes victoires
         </h1>
-<<<<<<< HEAD
-        <NuxtLink to="/sign-up">
-          <button class="btn btn-primary">
-            Rejoignez La Communauté
-          </button>
-=======
         <NuxtLink to="/teams">
           <button class="btn btn-primary">Consulter les équipes</button>
->>>>>>> cd4e6ee175a5977f6f3cf2672e08e140932c5a3b
         </NuxtLink>
       </div>
     </div>

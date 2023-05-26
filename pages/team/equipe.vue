@@ -1,40 +1,37 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { mapActions, mapState } from 'pinia'
-import { useTeamsStore } from '~/stores/teams'
-import type Team from '~/models/team.model'
+import { defineComponent } from "vue";
+import { mapActions, mapState } from "pinia";
+import { useTeamsStore } from "~/stores/teams";
+import type Team from "~/models/team.model";
 
 export default defineComponent({
   setup() {
     useHead({
-      title: 'Listes des équipes',
-    })
+      title: "Listes des équipes",
+    });
   },
   computed: {
-    ...mapState(useTeamsStore, ['userTeams']),
+    ...mapState(useTeamsStore, ["teams"]),
   },
   methods: {
-    ...mapActions(useTeamsStore, ['updateTeam', 'deleteTeam', 'fetchAllTeams']),
+    ...mapActions(useTeamsStore, ["updateTeam", "deleteTeam", "fetchAllTeams"]),
     updateTeamEquipe(team: Team) {
-      this.updateTeam(team)
+      this.updateTeam(team);
     },
     deleteTeamEquipe(team: Team) {
-      this.deleteTeam(team)
+      this.deleteTeam(team.id!);
     },
   },
 
   created() {
-    this.fetchAllTeams()
+    this.fetchAllTeams();
   },
-
-})
+});
 </script>
 
 <template>
   <div>
-    <h1 class="style-1 text-center">
-      Liste des équipes
-    </h1>
+    <h1 class="style-1 text-center">Liste des équipes</h1>
   </div>
   <table class="table w-full">
     <thead>
@@ -47,20 +44,23 @@ export default defineComponent({
       </tr>
     </thead>
     <tbody>
-      <tr v-for="team in userTeams " :key="team.id">
+      <tr v-for="team in teams" :key="team.id">
         <td>{{ team.name }}</td>
         <td>{{ team.description }}</td>
         <td>{{ team.motivation }}</td>
         <td>{{ team.departement }}</td>
         <th>
-          <div style="display: flex; justify-content: space-evenly;">
-            <button class="btn btn-success" @click="updateTeamEquipe(team)">update</button>
-            <button class="btn btn-error" @click="deleteTeamEquipe(team)">delete</button>
+          <div style="display: flex; justify-content: space-evenly">
+            <label for="updateTeamModal" class="btn btn-success">update</label>
+            <label class="btn btn-error" @click="deleteTeamEquipe(team)"
+              >delete</label
+            >
           </div>
         </th>
       </tr>
     </tbody>
   </table>
+  <TheUpdateTeam />
 </template>
 
 <style scoped></style>

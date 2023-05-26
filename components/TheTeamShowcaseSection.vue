@@ -35,14 +35,6 @@ export default defineComponent({
         :fixed-width="true"
       />
     </div>
-<<<<<<< HEAD
-    <NuxtLink to="/teams">
-      <button class="btn btn-primary mt-12">
-        Voir Plus D’équipes
-      </button>
-    </NuxtLink>
-=======
->>>>>>> cd4e6ee175a5977f6f3cf2672e08e140932c5a3b
   </div>
 </template>
 

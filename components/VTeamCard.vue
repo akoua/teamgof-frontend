@@ -24,15 +24,9 @@ export default defineComponent({
 </script>
 
 <template>
-<<<<<<< HEAD
-  <VCard :fixed-width="fixedWidth">
-    <template #card-image>
-      <div class="w-full h-20">
-=======
   <VCard :fixedWidth="fixedWidth">
     <template v-slot:card-image>
       <div class="w-full h-20 mt-6">
->>>>>>> cd4e6ee175a5977f6f3cf2672e08e140932c5a3b
         <img
           v-if="team.imageUrl"
           :src="team.imageUrl"

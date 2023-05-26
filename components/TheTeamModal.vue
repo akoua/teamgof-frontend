@@ -63,15 +63,8 @@ export default defineComponent({
         {{ selectedTeam.description }}
       </p>
       <div class="mt-4">
-<<<<<<< HEAD
-        <h3 class="font-bold underline decoration-4">
-          Membres Actuels
-        </h3>
-        <ul class="mt-2">
-=======
         <h3 class="font-bold underline decoration-4">Membres Actuels</h3>
         <ul class="mt-2" v-if="selectedTeam.members?.length! > 0">
->>>>>>> cd4e6ee175a5977f6f3cf2672e08e140932c5a3b
           <li
             v-for="(member, index) in selectedTeam.members"
             :key="index"

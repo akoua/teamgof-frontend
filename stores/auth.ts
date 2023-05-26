@@ -1,23 +1,13 @@
-<<<<<<< HEAD
-import { defineStore } from 'pinia'
-
-import authService from '~/common/auth.service'
-import { destroyUser, getUser, saveUser } from '@/common/localstorage.service'
-=======
 import { defineStore } from "pinia";
 import { useAxios } from "~/composables/useAxios";
 import instance from "~/common/axios";
->>>>>>> cd4e6ee175a5977f6f3cf2672e08e140932c5a3b
-
+import authService from "~/common/auth.service";
+import { saveUser, destroyUser, getUser } from "@/common/localstorage.service";
+const axios = useAxios();
 export interface AuthState {
-<<<<<<< HEAD
-  userData: UserData | null
-  loading: boolean
-=======
   userData: UserData | null;
   loading: boolean;
   result: any;
->>>>>>> cd4e6ee175a5977f6f3cf2672e08e140932c5a3b
 }
 
 export const useAuthStore = defineStore('auth', {

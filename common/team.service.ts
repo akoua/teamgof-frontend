@@ -3,6 +3,14 @@ import instance from "./axios";
 import TeamCreate from "~/models/team.create.model";
 
 class TeamService {
+  async updateTeam(team: Team) {
+    return instance.put(`/team/update/${team.id}`, team).then(response => response.data)
+  }
+
+  async deleteTeam(teamID: number) {
+    return instance.delete(`/team/delete/${teamID}`)
+  }
+
   async createTeam(team: TeamCreate): Promise<Team | null> {
     var teamResult: Team | null = null;
     await instance

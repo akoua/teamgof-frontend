@@ -1,13 +1,11 @@
+<template>  <SignupContent /></template>
+
 <script setup lang="ts">
 useHead({
-  title: 'Inscription',
-})
+  title: "Inscription",
+});
 
 definePageMeta({
-  layout: 'register',
-})
+  layout: "register",
+});
 </script>
-
-<template>
-  <SignupContent />
-</template>

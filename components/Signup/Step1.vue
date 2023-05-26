@@ -1,25 +1,3 @@
-<<<<<<< HEAD
-<script lang="ts">
-export default defineComponent({
-  name: 'SignupStep1',
-})
-</script>
-
-<template>
-  <div class="form-control mb-2">
-    <label class="label"> Nom : </label>
-    <input type="text" placeholder="Nom*" name="lastname" class="input input-bordered w-full text-black">
-  </div>
-  <div class="form-control  mb-2">
-    <label class="label"> Prénom : </label>
-    <input type="text" placeholder="Prénom*" name="firstname" class="input input-bordered w-full text-black">
-  </div>
-  <div class="form-control  mb-2">
-    <label class="label"> Localisation : </label>
-    <input type="text" placeholder="Localisation*" name="localisation" class="input input-bordered w-full text-black">
-  </div>
-</template>
-=======
 <template>
     <div class="form-control mb-2">
         <label class="label"> Nom : </label>
@@ -55,4 +33,3 @@ export default defineComponent({
         },
     });
 </script>
->>>>>>> cd4e6ee175a5977f6f3cf2672e08e140932c5a3b
