@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col items-center justify-center bg-base-300">
 
-     <template v-if="$route.params.success">
-        <AlertSucces :message="$route.params.data" />
-     </template>
+    <template v-if="showComponent">
+        <AlertSucces :message="successMessage" />
+    </template>
 
     <div class="p-8 bg-secondary rounded-md shadow-md w-full">
       <div class="flex flex-col mb-5">
@@ -73,7 +73,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { useAuthStore } from "@/stores/auth";
 import { mapActions, mapState } from "pinia";
 
@@ -82,10 +82,24 @@ export default defineComponent({
     return {
       email: "",
       password: "",
+      /* Show alert message */
+      showComponent: false,
+      successMessage: ''
     };
   },
   computed: {
-    ...mapState(useAuthStore, ["connectedUser", "isLoading"]),
+    ...mapState(useAuthStore, ["connectedUser", "isLoading", "result"]),
+  },
+  mounted(){
+    // Show success Message
+    if(this.result.success){
+        this.showComponent = true;
+        this.successMessage = this.result.data
+        setTimeout(() => {
+            this.showComponent = false;
+            this.successMessage= '';
+        }, 7000);
+    }
   },
   methods: {
     ...mapActions(useAuthStore, ["login"]),

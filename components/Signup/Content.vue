@@ -6,43 +6,18 @@
     </template>
    
     <div class="p-8 bg-secondary rounded-md shadow-md">
-      
       <h1 class="text-3xl font-bold mb-4 color text-center">INSCRIPTION</h1>
 
       <!-- Step Navigation -->
       <ul class="steps">
-        <li
-          :class="[
-            'step',
-            {
-              'step-primary': currentStep === 0,
-              'font-bold': currentStep === 0,
-            },
-          ]"
-        >
+        <li :class="['step', {'step-primary': currentStep === 0, 'font-bold': currentStep === 0,},]">
           Informations personnelles
         </li>
-        <li
-          :class="[
-            'step',
-            {
-              'step-primary': currentStep === 1,
-              'font-bold': currentStep === 1,
-            },
-          ]"
-        >
+        <li :class="['step', {'step-primary': currentStep === 1, 'font-bold': currentStep === 1,}, ]">
           Informations de connexion
         </li>
-        <li
-          :class="[
-            'step',
-            {
-              'step-primary': currentStep === 2,
-              'font-bold': currentStep === 2,
-            },
-          ]"
-        >
-          Mes qualifications
+        <li :class="['step', { 'step-primary': currentStep === 2, 'font-bold': currentStep === 2,},]">
+          Mes points
         </li>
       </ul>
 
@@ -50,7 +25,6 @@
       <div class="flex flex-col">
         <div class="mt-7 mb-10 justify-center">
           <form>
-            
             <!-- Step1 -->
             <div v-if="currentStep === 0">
               <div class="form-control mb-2">
@@ -64,6 +38,11 @@
               <div class="form-control  mb-2">
                   <label class="label"> Localisation : </label>
                   <input type="text" placeholder="Localisation*" name="location" v-model="formData.location" class="input input-bordered w-full text-black" />
+              </div>
+              
+              <div class="form-control  mb-2">
+                  <label class="label"> Numéro FFE : </label>
+                  <input type="text" placeholder="Numéro FFE" name="ffe" v-model="formData.ffe" class="input input-bordered w-full text-black" />
               </div>
             </div> 
             
@@ -87,7 +66,7 @@
             <div v-if="currentStep === 2">
                
               <div class="flex items-center  mb-8">
-                  <span class="font-bold mr-3">Ajouter vos différentes qualifications</span>
+                  <span class="font-bold mr-3">Ajouter vos points</span>
                   <a class="btn btn-primary p-2" @click="addRow">
                       <Icon name="fe:plus" size="24" class="text-white" />
                   </a>
@@ -95,28 +74,35 @@
               
               <div class="tab-container">
                 <div v-for="(row, index) in rows" :key="index" class="tab flex flex-col mb-14">
-                  <div class="flex">
-                          <div class="mr-4">
+                  <div class="flex w-full">
+                          <div class="mr-4 w-2/6">
                              <label class="label text-white p-0"> Discipline : </label>
-                              <select class="select select-bordered w-full max-w-xs">
-                                  <option>D1</option>
-                                  <option>D2</option>
+                              <select class="select select-bordered w-full max-w-xs"  v-model="discipline[index]">
+                                  <option disabled selected>Discipline ?</option>
+                                  <option v-for="discipline in allDisciplines" :value="discipline" :key="discipline.disciplineId">
+                                    {{ discipline.disciplineName }}
+                                  </option>
                               </select> 
                           </div>
-                          <div class="mr-4">
+                          <div class="mr-4 w-2/6">
                               <label class="label text-white p-0"> Championnat : </label>
                               <select v-model="championnat[index]" class="select select-bordered w-full max-w-xs">
-                                  <option value="13">N1</option>
-                                  <option value="14">N2</option>
+                                  <option disabled selected>Championnat ?</option>
+                                  <option
+                                    v-for="championship in discipline[index]?.championships"
+                                    :value="championship.championshipId"
+                                  >
+                                    {{ championship.championshipName }}
+                                  </option>
                               </select> 
                           </div>
-                          <div class="mr-4">
+                          <div class="mr-4 w-1/6">
                             <div class="form-control">
-                                <label class="label text-white p-0"> Qualification : </label>
-                                <input type="text" v-model="qualification[index]"  class="input input-bordered text-black" />
+                                <label class="label text-white p-0"> Point : </label>
+                                <input type="text" maxlength="4" v-model="qualification[index]"  class="input input-bordered text-black" />
                             </div>
                           </div>
-                          <div class="mt-6">
+                          <div class="mt-6 w-1/6">
                               <a class="btn btn-base-300 btn-circle" @click="deleteRow(index)">
                                   <Icon name="fe:close" size="22" />
                               </a>
@@ -140,7 +126,7 @@
           </button>
         </div>
 
-        <div class="flex justify-center space-x-2 mt-4">
+        <div class="flex justify-center space-x-2 mt-6">
           <div>J'ai déjà un compte ?</div>
           <NuxtLink class="text-primary" to="/sign-in">Connexion</NuxtLink>
         </div>
@@ -152,7 +138,9 @@
 <script>
 import { defineComponent } from "vue";
 import { useAuthStore } from "@/stores/auth";
+import { useDisciplinesStore } from "@/stores/disciplines";
 import { mapState, mapActions } from "pinia";
+
 
 export default defineComponent({
   data() {
@@ -171,6 +159,7 @@ export default defineComponent({
       qualification: [],
       
       /* Form Data */
+      discipline: [],
       confirmation:'',
       formData: {
         firstname: '',
@@ -179,15 +168,26 @@ export default defineComponent({
         email: '',
         pwd: '',
         location: '',
+        ffe: '',
       },
     };
   },
   computed: {
     ...mapState(useAuthStore, ["result"]),
+    ...mapState(useDisciplinesStore, ["allDisciplines"]),
+  },
+  async mounted() {
+    try {
+      await this.fetchAllDisciplines();
+      console.log(this.allDisciplines);
+    } catch (error) {
+      console.error('Failed to fetch API data:', error);
+    }
   },
   methods: {
     // Get Store methods
     ...mapActions(useAuthStore, ["signup"]),
+    ...mapActions(useDisciplinesStore, ["fetchAllDisciplines"]),
     
     // For Step 3 
     addRow() {
@@ -234,7 +234,7 @@ export default defineComponent({
       } 
     },
     
-     // Get Step3 Form Data value
+    // Get Step3 Form Data value
     async handleStep3Value() {
       // Show loading 
       this.loading = true;
@@ -256,13 +256,7 @@ export default defineComponent({
           this.loading = false;
           
           // Navigate to login
-          this.$router.navigateTo({
-            path: '/sign-in',
-            query: {
-              success: this.result.success,
-              data: this.result.data,
-            },
-          });
+          navigateTo({path: '/sign-in'});
           
         }else{
            // hide loading
