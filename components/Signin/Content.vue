@@ -1,5 +1,10 @@
 <template>
-  <div class="flex items-center justify-center bg-base-300">
+  <div class="flex flex-col items-center justify-center bg-base-300">
+
+     <template v-if="$route.params.success">
+        <AlertSucces :message="$route.params.data" />
+     </template>
+
     <div class="p-8 bg-secondary rounded-md shadow-md w-full">
       <div class="flex flex-col mb-5">
         <h1 class="text-3xl font-bold color text-center">TEAMGOF</h1>
@@ -100,3 +105,4 @@ export default defineComponent({
   },
 });
 </script>
+

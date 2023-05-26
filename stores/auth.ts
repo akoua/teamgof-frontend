@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useAxios } from "~/composables/useAxios";
 import instance from "~/common/axios";
 
 import authService from "~/common/auth.service";
@@ -6,12 +7,14 @@ import { saveUser, destroyUser, getUser } from "@/common/localstorage.service";
 export interface AuthState {
   userData: UserData | null;
   loading: boolean;
+  result: any;
 }
 
 export const useAuthStore = defineStore("auth", {
   state: (): AuthState => ({
     userData: null,
     loading: false,
+     result: { success: false, data: null }
   }),
   getters: {
     isAuthenticated: (state) => !!state.userData,
@@ -41,6 +44,16 @@ export const useAuthStore = defineStore("auth", {
     logout() {
       this.userData = null;
       destroyUser();
+    },
+    async signup(data : FormData): Promise<void> {
+      await axios
+        .post("/login/sign-up", data)
+        .then((response) => {
+          this.result = { success: true, data: response.data }; // Update result with success status and data
+        })
+        .catch(error => {
+          this.result = { success: false, data: error }; // Update postResult with error status and errorMessage
+        });
     },
   },
 });
