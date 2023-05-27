@@ -29,7 +29,12 @@
             <td>{{ item.championship.championshipName }}</td>
             <td>{{ item.discipline.disciplineName }}</td>
             <td>
-              <button class="btn btn-info mr-4">
+              <button
+                class="btn btn-info mr-4"
+                @click="
+                  handleChampionshipClick(item.championship.championshipId)
+                "
+              >
                 <Icon name="fe:eye" />
               </button>
               <button class="btn btn-success mr-4">
@@ -57,6 +62,11 @@ import Discipline from "~/models/discipline.model";
 import { DisciplineChampionship } from "~/models/discipline.model";
 
 export default defineComponent({
+  setup() {
+    useHead({
+      title: "Épreuves",
+    });
+  },
   computed: {
     ...mapState(useDisciplinesStore, ["allDisciplines"]),
     allChampionshipsAndDisciplines(): Array<{
@@ -80,6 +90,9 @@ export default defineComponent({
   },
   methods: {
     ...mapActions(useDisciplinesStore, ["fetchAllDisciplines"]),
+    async handleChampionshipClick(id: number): Promise<void> {
+      await navigateTo(`/championships/${id}`);
+    },
   },
   mounted() {
     this.fetchAllDisciplines();

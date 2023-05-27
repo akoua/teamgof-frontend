@@ -49,6 +49,11 @@ import { defineComponent } from "vue";
 import { mapState, mapActions } from "pinia";
 import { useDisciplinesStore } from "~/stores/disciplines";
 export default defineComponent({
+  setup() {
+    useHead({
+      title: "Disciplines",
+    });
+  },
   computed: {
     ...mapState(useDisciplinesStore, ["allDisciplines"]),
   },
