@@ -12,6 +12,7 @@ class TeamService {
       })
       .catch((error: any) => {
         console.error(error);
+        throw error;
       });
     return teamResult;
   }
@@ -30,6 +31,7 @@ class TeamService {
       })
       .catch((error: any) => {
         console.error(error);
+        throw error;
       });
     return teams;
   }

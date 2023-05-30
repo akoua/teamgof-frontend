@@ -13,6 +13,7 @@ class ChampionshipService {
       })
       .catch((error: any) => {
         console.error(error);
+        throw error;
       });
     return championshipResult;
   }

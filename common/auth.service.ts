@@ -12,6 +12,7 @@ class AuthService {
       })
       .catch((error) => {
         console.error(error);
+        throw error;
       });
     return accessToken;
   }
@@ -34,6 +35,7 @@ class AuthService {
       })
       .catch((error) => {
         console.error(error);
+        throw error;
       });
     return userData;
   }

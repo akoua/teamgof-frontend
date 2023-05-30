@@ -4,13 +4,19 @@
       title="Gestion des Disciplines"
       sub-title="Administrez et gérez les disciplines sportives"
     />
-    <label for="createDisciplineModal" class="btn btn-primary my-4"
+    <label
+      for="disciplineModal"
+      class="btn btn-primary my-4"
+      @click="operation = 'create'"
       >Créer Une Discipline</label
     >
-    <p class="text-center mt-8" v-show="allDisciplines.length === 0">
+    <p
+      class="text-center mt-8"
+      v-show="allDisciplines.length === 0 || isLoading"
+    >
       Chargement...
     </p>
-    <div class="w-full mt-8" v-show="allDisciplines.length > 0">
+    <div class="w-full mt-8" v-show="allDisciplines.length > 0 && !isLoading">
       <VTable>
         <template #head>
           <tr>
@@ -27,11 +33,18 @@
             <th>{{ discipline.disciplineId }}</th>
             <td>{{ discipline.disciplineName }}</td>
             <td>
-              <button class="btn btn-success mr-4">
+              <label
+                for="disciplineModal"
+                class="btn btn-success mr-4"
+                @click="handleUpdateDiscipline(discipline)"
+              >
                 <Icon name="fe:pencil" />
-              </button>
+              </label>
               <button class="btn btn-error">
-                <Icon name="fe:trash" />
+                <Icon
+                  name="fe:trash"
+                  @click="handleDeleteDiscipline(discipline)"
+                />
               </button>
             </td>
           </tr>
@@ -39,7 +52,7 @@
       </VTable>
     </div>
     <ClientOnly>
-      <TheDisciplineCreateModal />
+      <TheDisciplineModal :operation="operation" />
     </ClientOnly>
   </div>
 </template>
@@ -48,17 +61,40 @@
 import { defineComponent } from "vue";
 import { mapState, mapActions } from "pinia";
 import { useDisciplinesStore } from "~/stores/disciplines";
+import Discipline from "~/models/discipline.model";
 export default defineComponent({
   setup() {
     useHead({
       title: "Disciplines",
     });
   },
+  data() {
+    return {
+      operation: "create",
+    };
+  },
   computed: {
-    ...mapState(useDisciplinesStore, ["allDisciplines"]),
+    ...mapState(useDisciplinesStore, ["allDisciplines", "isLoading"]),
   },
   methods: {
-    ...mapActions(useDisciplinesStore, ["fetchAllDisciplines"]),
+    ...mapActions(useDisciplinesStore, [
+      "fetchAllDisciplines",
+      "setSelectedDiscipline",
+      "deleteDiscipline",
+    ]),
+    handleUpdateDiscipline(discipline: Discipline): void {
+      this.operation = "update";
+      this.setSelectedDiscipline(discipline);
+    },
+    async handleDeleteDiscipline(discipline: Discipline): Promise<void> {
+      if (
+        confirm(
+          `Êtes-vous sûr de vouloir supprimer la discipline ${discipline.disciplineName} ? Cette action est irréversible et entraînera la suppression permanente de tous les championnats associés.`
+        )
+      ) {
+        await this.deleteDiscipline(discipline);
+      }
+    },
   },
   mounted() {
     this.fetchAllDisciplines();

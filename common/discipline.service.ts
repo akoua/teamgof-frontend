@@ -11,6 +11,7 @@ class DisciplineService {
       })
       .catch((error: any) => {
         console.error(error);
+        throw error;
       });
     return disciplines;
   }
@@ -27,8 +28,35 @@ class DisciplineService {
       })
       .catch((error: any) => {
         console.error(error);
+        throw error;
       });
     return disciplineResult;
+  }
+
+  async updateDiscipline(discipline: Discipline): Promise<Discipline | null> {
+    let disciplineResult: Discipline | null = null;
+    const payload = {
+      name: discipline.disciplineName,
+    };
+    await instance
+      .put(`/disciplines/update/${discipline.disciplineId}`, payload)
+      .then((result: any) => {
+        disciplineResult = result.data.data;
+      })
+      .catch((error: any) => {
+        console.error(error);
+        throw error;
+      });
+    return disciplineResult;
+  }
+
+  async deleteDiscipline(discipline: Discipline): Promise<void> {
+    await instance
+      .delete(`/disciplines/delete/${discipline.disciplineId}`)
+      .catch((error: any) => {
+        console.error(error);
+        throw error;
+      });
   }
 }
 
