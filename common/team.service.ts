@@ -7,10 +7,10 @@ class TeamService {
     let teamResult: Team | null = null;
     await instance
       .post("/team/create", team)
-      .then((result) => {
+      .then((result: any) => {
         teamResult = result.data.data;
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error(error);
       });
     return teamResult;
@@ -25,10 +25,10 @@ class TeamService {
           end,
         },
       })
-      .then((result) => {
+      .then((result: any) => {
         teams = result.data.data;
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error(error);
       });
     return teams;

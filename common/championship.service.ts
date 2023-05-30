@@ -8,10 +8,10 @@ class ChampionshipService {
     let championshipResult: Championship | null = null;
     await instance
       .post("/epreuves/add", championship)
-      .then((result) => {
+      .then((result: any) => {
         championshipResult = result.data.data;
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error(error);
       });
     return championshipResult;

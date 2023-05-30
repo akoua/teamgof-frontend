@@ -4,9 +4,21 @@
   <TheAboutSection />
 </template>
 
-<script setup lang="ts">
-useHead({
-  title: "Accueil",
+<script lang="ts">
+import { mapActions } from "pinia";
+import { useTeamsStore } from "~/stores/teams";
+export default defineComponent({
+  setup() {
+    useHead({
+      title: "Accueil",
+    });
+  },
+  methods: {
+    ...mapActions(useTeamsStore, ["fetchAllTeams"]),
+  },
+  mounted() {
+    this.fetchAllTeams();
+  },
 });
 </script>
 
