@@ -37,6 +37,21 @@ class AuthService {
       });
     return userData;
   }
+  async signup(data : FormData): Promise<any> {
+    let result : any = null;
+    await instance
+      .post("/login/sign-up", data)
+      .then((response) => {
+        const responseObject = response.data;
+        result = { success: responseObject.success, data: "Votre compte a été créé avec succès" }; 
+      })
+      .catch(error => {
+        const errorObject = error.response.data;
+        const errorApi = errorObject.error.message;
+        result = { success: false, data: errorApi }; 
+      });
+      return result;
+  }
 }
 
 export default new AuthService();
