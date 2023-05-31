@@ -6,8 +6,12 @@
     />
     <div class="w-full mt-8">
       <VTab tab1-title="Détails" tab2-title="Précisions">
-        <template #content1> </template>
-        <template #content2>b </template>
+        <template #content1>
+          <TheChampionshipInfo />
+        </template>
+        <template #content2>
+          <TheChampionshipPrecisions />
+        </template>
       </VTab>
     </div>
   </div>
@@ -32,7 +36,27 @@ export default defineComponent({
   computed: {
     ...mapState(useDisciplinesStore, ["selectedChampionship"]),
     pageTitle(): string {
-      return `Gestion ${this.selectedChampionship?.championshipName}`;
+      const test = [
+        {
+          epreuve: "a",
+          teams: ["t1", "t2"],
+        },
+        {
+          epreuve: "b",
+          teams: ["t2"],
+        },
+      ];
+      const test2 = [
+        {
+          epreuves: ["a"],
+          team: "t1",
+        },
+        {
+          epreuves: ["a", "b"],
+          team: "t2",
+        },
+      ];
+      return `Gestion ${this.selectedChampionship?.title}`;
     },
   },
   mounted() {

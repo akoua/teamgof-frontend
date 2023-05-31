@@ -1,11 +1,13 @@
 import { defineStore } from "pinia";
 import Discipline from "~/models/discipline.model";
 import disciplineService from "~/common/discipline.service";
+import championshipService from "~/common/championship.service";
+import { ChampionshipGet } from "~/models/championship.model";
 
 export interface FiltersState {
   disciplines: Array<Discipline>;
   loading: boolean;
-  selectedChampionshipId: number | null;
+  championship: ChampionshipGet | null;
   discipline: Discipline | null;
 }
 
@@ -13,24 +15,14 @@ export const useDisciplinesStore = defineStore("disciplines", {
   state: (): FiltersState => ({
     disciplines: [],
     loading: false,
-    selectedChampionshipId: null,
+    championship: null,
     discipline: null,
   }),
   getters: {
     allDisciplines: (state) => state.disciplines,
     isLoading: (state) => state.loading,
     selectedDiscipline: (state) => state.discipline,
-    selectedChampionship: (state) => {
-      for (const discipline of state.disciplines) {
-        const championship = discipline.championships?.find(
-          (c) => c.championshipId === state.selectedChampionshipId!
-        );
-        if (championship) {
-          return championship;
-        }
-      }
-      return null;
-    },
+    selectedChampionship: (state) => state.championship,
   },
   actions: {
     async fetchAllDisciplines(): Promise<void> {
@@ -75,8 +67,10 @@ export const useDisciplinesStore = defineStore("disciplines", {
           this.loading = false;
         });
     },
-    setSelectedChampionship(id: number) {
-      this.selectedChampionshipId = id;
+    async setSelectedChampionship(id: number) {
+      await championshipService.getChampionship(id).then((championship) => {
+        this.championship = championship;
+      });
     },
     setSelectedDiscipline(discipline: Discipline) {
       this.discipline = discipline;

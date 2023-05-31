@@ -33,15 +33,14 @@ instance.interceptors.response.use(
           return instance(originalRequest);
         } catch (refreshError) {
           // Handle refresh token error (e.g., show error message, redirect to login page)
-          console.error(refreshError);
           // Example: Redirect to the login page
-          //window.location.href = "/";
+          window.location.href = "/sign-in";
         }
       } else {
         // Handle missing refresh token (e.g., show error message, redirect to login page)
         console.error("Refresh token is missing");
         // Example: Redirect to the login page
-        //window.location.href = "/";
+        window.location.href = "/sign-in";
       }
     }
     return Promise.reject(error);
