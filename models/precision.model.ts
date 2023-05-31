@@ -11,6 +11,19 @@ export interface PrecisionItem {
   };
 }
 
+export interface PrecisionItemWithName {
+  precisionType: string;
+  values: {
+    value: number;
+    epreuves: Array<Championship>;
+  };
+}
+
+interface Championship {
+  championshipId: number;
+  championshipName: string;
+}
+
 export enum PrecisionType {
   DISCIPLINEPERCENTAGE,
   EVENTINGTYPES,

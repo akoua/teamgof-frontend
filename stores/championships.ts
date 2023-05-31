@@ -1,5 +1,9 @@
 import { defineStore } from "pinia";
-import { Championship, ChampionshipGet } from "~/models/championship.model";
+import {
+  Championship,
+  ChampionshipGet,
+  ChampionshipPut,
+} from "~/models/championship.model";
 import championshipService from "~/common/championship.service";
 import { useDisciplinesStore } from "./disciplines";
 
@@ -27,7 +31,7 @@ export const useChampionshipsStore = defineStore("championships", {
           this.loading = false;
         });
     },
-    async updateChampionship(championship: ChampionshipGet): Promise<void> {
+    async updateChampionship(championship: ChampionshipPut): Promise<void> {
       this.loading = true;
       await championshipService
         .updateChampionship(championship)

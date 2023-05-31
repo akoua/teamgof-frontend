@@ -53,10 +53,7 @@ export default defineComponent({
     ...mapActions(useDisciplinesStore, ["fetchAllDisciplines"]),
     async handleAddChampionships() {
       if (this.championships.length > 0) {
-        this.$emit("addChampionships", [
-          ...this.existingChampionships,
-          ...this.championships,
-        ]);
+        this.$emit("addChampionships", [...this.championships]);
         this.closeChildModal();
       } else {
         alert("Veuillez sélectionner au moins une épreuve.");

@@ -1,5 +1,9 @@
 import instance from "./axios";
-import { Championship, ChampionshipGet } from "~/models/championship.model";
+import {
+  Championship,
+  ChampionshipGet,
+  ChampionshipPut,
+} from "~/models/championship.model";
 
 class ChampionshipService {
   async createChampionship(
@@ -19,17 +23,21 @@ class ChampionshipService {
   }
 
   async updateChampionship(
-    championship: ChampionshipGet
+    championship: ChampionshipPut
   ): Promise<Championship | null> {
-    const mChampionship: any = {
-      ...championship,
-      precisions: championship.details.map((oldDetail: any) => ({
+    let precisions = undefined;
+
+    if (championship.details) {
+      precisions = championship.details!.map((oldDetail: any) => ({
         precisionType: oldDetail.precisionType,
         values: { ...oldDetail.values },
-      })),
+      }));
+    }
+    const mChampionship: any = {
+      ...championship,
+      precisions,
       details: undefined,
     };
-    console.log(mChampionship);
     let championshipResult: Championship | null = null;
     await instance
       .put("/epreuves/update", mChampionship)

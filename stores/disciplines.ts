@@ -68,9 +68,15 @@ export const useDisciplinesStore = defineStore("disciplines", {
         });
     },
     async setSelectedChampionship(id: number) {
-      await championshipService.getChampionship(id).then((championship) => {
-        this.championship = championship;
-      });
+      this.loading = true;
+      await championshipService
+        .getChampionship(id)
+        .then((championship) => {
+          this.championship = championship;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     setSelectedDiscipline(discipline: Discipline) {
       this.discipline = discipline;

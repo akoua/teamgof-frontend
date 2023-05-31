@@ -1,9 +1,9 @@
-import { PrecisionItem } from "./precision.model";
+import { PrecisionItem, PrecisionItemWithName } from "./precision.model";
 
 export interface Championship {
   titles: Array<string>;
   discipline: string;
-  session: Session;
+  session: string;
   exclusion: string;
   helpFileUrl: string;
   qualification: {
@@ -17,14 +17,28 @@ export interface ChampionshipGet {
   id: number;
   title: string;
   disciplineId: string;
-  session: Session;
+  session: string;
   exclusion: string;
   helpFileUrl: string;
   qualification: {
     qualificationCavalier: number;
     qualificationEquide: number;
   };
-  details: Array<PrecisionItem>;
+  details: Array<PrecisionItemWithName>;
+}
+
+export interface ChampionshipPut {
+  id: number;
+  title: string;
+  disciplineId: string;
+  session: string;
+  exclusion: string;
+  helpFileUrl: string;
+  qualification: {
+    qualificationCavalier: number;
+    qualificationEquide: number;
+  };
+  details?: Array<PrecisionItem>;
 }
 
 export enum Session {

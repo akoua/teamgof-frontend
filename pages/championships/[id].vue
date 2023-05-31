@@ -4,7 +4,7 @@
       :title="pageTitle"
       sub-title="Donnez vie à vos compétitions sportives"
     />
-    <div class="w-full mt-8">
+    <div class="w-full my-8">
       <VTab tab1-title="Détails" tab2-title="Précisions">
         <template #content1>
           <TheChampionshipInfo />
@@ -36,26 +36,6 @@ export default defineComponent({
   computed: {
     ...mapState(useDisciplinesStore, ["selectedChampionship"]),
     pageTitle(): string {
-      const test = [
-        {
-          epreuve: "a",
-          teams: ["t1", "t2"],
-        },
-        {
-          epreuve: "b",
-          teams: ["t2"],
-        },
-      ];
-      const test2 = [
-        {
-          epreuves: ["a"],
-          team: "t1",
-        },
-        {
-          epreuves: ["a", "b"],
-          team: "t2",
-        },
-      ];
       return `Gestion ${this.selectedChampionship?.title}`;
     },
   },
