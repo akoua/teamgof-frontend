@@ -3,10 +3,10 @@ import { useAuthStore } from "~/stores/auth";
 export default defineNuxtRouteMiddleware((to, from) => {
   if (process.server) return;
 
-  let authStore = useAuthStore();
+  const authStore = useAuthStore();
 
   authStore.checkAuth();
-  let isAuthenticated = authStore.isAuthenticated;
+  const isAuthenticated = authStore.isAuthenticated;
 
   if (to.path === "/protected") {
     if (!isAuthenticated) {

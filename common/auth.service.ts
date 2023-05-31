@@ -2,7 +2,7 @@ import instance from "~/common/axios";
 
 class AuthService {
   async refreshToken(refreshToken: string): Promise<string> {
-    var accessToken = "";
+    let accessToken = "";
     await instance
       .post("/token/refreshToken", {
         refreshToken: refreshToken,
@@ -12,6 +12,7 @@ class AuthService {
       })
       .catch((error) => {
         console.error(error);
+        throw error;
       });
     return accessToken;
   }
@@ -34,6 +35,7 @@ class AuthService {
       })
       .catch((error) => {
         console.error(error);
+        throw error;
       });
     return userData;
   }

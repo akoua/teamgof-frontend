@@ -3,7 +3,7 @@
     class="py-20 flex flex-col justify-center items-center"
     v-if="teams.length > 0"
   >
-    <p class="text-lg font-bold">
+    <p class="text-lg font-bold mb-8">
       Opportunités d'équipe récentes : Rejoignez des passionnés dès maintenant !
     </p>
     <div

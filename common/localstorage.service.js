@@ -1,4 +1,4 @@
-let USER = "user";
+const USER = "user";
 
 export const getUser = () => {
   if (typeof window !== "undefined") {

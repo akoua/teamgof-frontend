@@ -124,9 +124,9 @@ import MOTIVATION_TYPES from "~/constants/motivationTypes";
 import DEPARTEMENTS from "@/constants/departements";
 export default defineComponent({
   async setup() {
-    let modal = ref<InstanceType<typeof VModal>>();
+    const modal = ref<InstanceType<typeof VModal>>();
 
-    let closeChildModal = async () => {
+    const closeChildModal = async () => {
       await modal.value?.closeModal();
     };
     const { $getMotivationKey } = useNuxtApp();
@@ -157,6 +157,7 @@ export default defineComponent({
   },
   methods: {
     ...mapActions(useTeamsStore, ["createTeam"]),
+    ...mapActions(useDisciplinesStore, ["fetchAllDisciplines"]),
     async submitForm() {
       if (
         !this.title ||
@@ -168,7 +169,7 @@ export default defineComponent({
       ) {
         alert("Veuillez entrer toutes les informations de l'équipe.");
       } else {
-        let team = {
+        const team = {
           name: this.title,
           description: this.description,
           motivation: this.getMotivationKey(this.motivation)!,
@@ -183,12 +184,17 @@ export default defineComponent({
     },
   },
   mounted() {
-    if (this.allDisciplines.length > 0) {
-      this.discipline = this.allDisciplines[0];
-    }
+    this.fetchAllDisciplines();
     if (this.DEPARTEMENTS.length > 0) {
       this.location = this.DEPARTEMENTS[0];
     }
+  },
+  watch: {
+    allDisciplines(oldValue, newValue) {
+      if (newValue.length > 0) {
+        this.discipline = newValue[0];
+      }
+    },
   },
 });
 </script>
