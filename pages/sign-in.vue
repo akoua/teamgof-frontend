@@ -2,12 +2,16 @@
   <SigninContent />
 </template>
 
-<script setup lang="ts">
-useHead({
-  title: "Connexion",
-});
+<script lang="ts">
+export default defineComponent({
+  setup() {
+    useHead({
+      title: "Connexion",
+    });
 
-definePageMeta({
-  layout: "register",
+    definePageMeta({
+      layout: "register",
+    });
+  },
 });
 </script>

@@ -9,6 +9,7 @@
     <div class="tab-container">
       <div v-for="(row, index) in rows" :key="index" class="tab flex flex-col mb-12">
         <div class="flex">
+         
                 <div class="mr-4">
                     <select name="row.input1" class="select select-bordered w-full max-w-xs">
                         <option disabled selected>Discipline ?</option>

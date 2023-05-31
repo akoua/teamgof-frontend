@@ -1,192 +1,119 @@
 import { defineStore } from "pinia";
 import Team from "~/models/team.model";
-import { useFiltersStore } from "./filters";
+import { useFilterStore } from "./filter";
+import instance from "~/common/axios";
+import teamService from "~/common/team.service";
+import TeamCreate from "~/models/team.create.model";
 export interface TeamsState {
   team: Team | undefined;
   teams: Array<Team>;
+  loading: boolean;
 }
 
 export const useTeamsStore = defineStore("teams", {
   state: (): TeamsState => ({
     team: undefined,
-    teams: [
-      {
-        id: 1,
-        title: "Les Galopeurs",
-        level: "As Poney Elite",
-        motivation: "Convivialité et plaisir",
-        location: "Rennes",
-        imageUrl:
-        "/images/no-image.png",
-        description:
-          "Une équipe de cavaliers passionnés de saut d'obstacles, prêts à relever tous les défis ensemble !",
-        members: [
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "1234456",
-          },
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "1244456",
-          },
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "2234456",
-          },
-        ],
-      },
-      {
-        id: 2,
-        title: "Les Galopeurs 2",
-        level: "As Poney Elite",
-        location: "Paris",
-        motivation: "Convivialité et plaisir",
-        imageUrl:
-        "/images/no-image.png",
-        description:
-          "Une équipe de cavaliers passionnés de saut d'obstacles, prêts à relever tous les défis ensemble !",
-        members: [
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "1234456",
-          },
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "1244456",
-          },
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "2234456",
-          },
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "2234457",
-          },
-        ],
-      },
-      {
-        id: 3,
-        title: "Les Galopeurs 2",
-        level: "As Poney Elite",
-        motivation: "Défis et progression",
-        location: "Paris",
-        imageUrl:
-        "/images/no-image.png",
-        description:
-          "Une équipe de cavaliers passionnés de saut d'obstacles, prêts à relever tous les défis ensemble !",
-        members: [
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "1234456",
-          },
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "1244456",
-          },
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "2234456",
-          },
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "2234457",
-          },
-        ],
-      },
-      {
-        id: 4,
-        title: "Les Galopeurs 2",
-        level: "As Poney Elite",
-        motivation: "Défis et progression",
-        location: "Nice",
-        imageUrl:
-          "/images/no-image.png",
-        description:
-          "Une équipe de cavaliers passionnés de saut d'obstacles, prêts à relever tous les défis ensemble !",
-        members: [
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "1234456",
-          },
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "1244456",
-          },
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "2234456",
-          },
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "2234457",
-          },
-        ],
-      },
-      {
-        id: 5,
-        title: "Les Galopeurs 5",
-        level: "As Poney Elite",
-        location: "Paris",
-        motivation: "Esprit d'équipe et compétition",
-        imageUrl:
-        "/images/no-image.png",
-        description:
-          "Une équipe de cavaliers passionnés de saut d'obstacles, prêts à relever tous les défis ensemble !",
-        members: [
-          {
-            firstName: "John",
-            lastName: "Doe",
-            ffeNumber: "1234456",
-          },
-        ],
-      },
-    ],
+    teams: [],
+    loading: false,
   }),
   getters: {
     selectedTeam: (state) => state.team,
-    allTeams: (state) => {
-      const filtersStore = useFiltersStore();
-      const { levels, locations, motivations } = filtersStore;
+    isLoading: (state) => state.loading,
+    allLevels: (state) => {
+      const levelsSet = new Set<string>();
+      state.teams.forEach((team) => {
+        team.epreuves.forEach((epreuve) => {
+          epreuve.championshipNames.forEach((championship) => {
+            levelsSet.add(championship);
+          });
+        });
+      });
+      return Array.from(levelsSet);
+    },
+    allLocations: (state) => {
+      const locationsSet = new Set<string>();
+      state.teams.forEach((team) => {
+        locationsSet.add(team.departement);
+      });
+      return Array.from(locationsSet);
+    },
+    allMotivations: (state) => {
+      const motivationsSet = new Set<string>();
+      state.teams.forEach((team) => {
+        motivationsSet.add(team.motivation);
+      });
+      return Array.from(motivationsSet);
+    },
+    filteredTeams: (state) => {
+      const filterStore = useFilterStore();
+      const { selectedLevels, selectedLocations, selectedMotivations } =
+        filterStore;
 
-      // Filter teams based on the selected filters
       const filteredTeams = state.teams.filter((team) => {
-        // Check if the team's level is included in the selected levels
         const isLevelMatched =
-          levels.length === 0 || levels.includes(team.level);
+          selectedLevels.length === 0 ||
+          selectedLevels.some((level) =>
+            team.epreuves.some((epreuve) =>
+              epreuve.championshipNames.includes(level)
+            )
+          );
 
-        // Check if the team's location is included in the selected locations
         const isLocationMatched =
-          locations.length === 0 || locations.includes(team.location);
+          selectedLocations.length === 0 ||
+          selectedLocations.includes(team.departement);
 
-        // Check if the team's motivation is included in the selected motivations
         const isMotivationMatched =
-          motivations.length === 0 || motivations.includes(team.motivation);
+          selectedMotivations.length === 0 ||
+          selectedMotivations.includes(team.motivation);
 
-        // Return true if all filters match, false otherwise
         return isLevelMatched && isLocationMatched && isMotivationMatched;
       });
 
       return filteredTeams;
     },
+    getFilteredTeams: (state) => (filters: any) => {
+      return state.teams.filter((team) => {
+        const levelMatch =
+          filters.levels.length === 0 ||
+          team.epreuves.some((epreuve) =>
+            filters.levels.includes(epreuve.discipline)
+          );
+        const locationMatch =
+          filters.locations.length === 0 ||
+          filters.locations.includes(team.departement);
+        const motivationMatch =
+          filters.motivations.length === 0 ||
+          filters.motivations.includes(team.motivation);
+
+        return levelMatch && locationMatch && motivationMatch;
+      });
+    },
   },
   actions: {
     setSelectedTeam(team: Team) {
       this.team = team;
+    },
+    async fetchAllTeams(): Promise<void> {
+      this.loading = true;
+      await teamService
+        .getTeams()
+        .then((teams) => {
+          this.teams = teams;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    async createTeam(team: TeamCreate): Promise<void> {
+      this.loading = true;
+      await teamService
+        .createTeam(team)
+        .then((newTeam) => {
+          this.teams.push(newTeam!);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
 });

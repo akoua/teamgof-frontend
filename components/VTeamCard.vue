@@ -1,28 +1,50 @@
 <template>
   <VCard :fixedWidth="fixedWidth">
     <template v-slot:card-image>
-      <img :src="team.imageUrl" width="100" :alt="`${team.title}-image`" />
+      <div class="w-full h-20 mt-6">
+        <img
+          :src="team.imageUrl"
+          :alt="`${team.name}-image`"
+          v-if="team.imageUrl"
+          class="w-full h-full object-cover"
+        />
+        <template v-else>
+          <img
+            src="@/assets/images/no-image.png"
+            alt="no-image"
+            class="w-full h-full object-contain"
+          />
+        </template>
+      </div>
     </template>
     <template v-slot:card-body>
       <div>
         <Icon name="fe:medal" />
-        <span class="text-xs ml-1">{{ team.level }}</span>
+        <span class="text-xs ml-1">
+          {{
+            team.epreuves
+              .map((epreuve) => epreuve.championshipNames.join(" · "))
+              .join(" · ")
+          }}
+        </span>
       </div>
       <div>
         <Icon name="fe:location" />
-        <span class="text-xs ml-1">{{ team.location }}</span>
+        <span class="text-xs ml-1">{{ team.departement }}</span>
       </div>
       <div>
         <Icon name="fe:flag" />
-        <span class="text-xs ml-1">{{ team.motivation }}</span>
+        <span class="text-xs ml-1">{{
+          $getMotivationValue(team.motivation)
+        }}</span>
       </div>
       <div class="flex justify-between items-center">
         <h2 class="card-title">
-          {{ team.title }}
+          {{ team.name }}
         </h2>
         <span>
           <Icon name="fe:users" /><span class="ml-2 text-sm">{{
-            `${team.members.length}/5`
+            `${team.members?.length}/5`
           }}</span>
         </span>
       </div>

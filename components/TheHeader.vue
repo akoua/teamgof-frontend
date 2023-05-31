@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <div class="navbar bg-base-100 md:px-20">
+    <div class="navbar bg-base-100 md:px-4">
       <div class="navbar-start">
         <div class="dropdown">
           <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -24,32 +24,44 @@
             class="menu menu-compact dropdown-content mt-3 shadow bg-base-100 rounded-box w-52"
           >
             <li class="font-bold uppercase">
-              <NuxtLink to="/teams">équipes</NuxtLink>
+              <NuxtLink to="/teams">les équipes</NuxtLink>
             </li>
             <li class="font-bold uppercase">
               <NuxtLink to="/sign-up">inscription</NuxtLink>
             </li>
             <li class="font-bold uppercase">
-              <NuxtLink to="/login">connexion</NuxtLink>
+              <NuxtLink to="/sign-in">connexion</NuxtLink>
             </li>
           </ul>
         </div>
-
         <NuxtLink to="/" class="text-2xl font-extrabold">TEAMGOF</NuxtLink>
       </div>
-      <div class="navbar-center hidden lg:flex">
+      <div class="navbar-end invisible md:visible">
         <ul class="menu menu-horizontal px-1">
           <li class="font-bold uppercase">
-            <NuxtLink to="/teams">équipes</NuxtLink>
+            <NuxtLink to="/teams">les équipes</NuxtLink>
+          </li>
+          <li class="font-bold uppercase" v-if="!isAuthenticated">
+            <NuxtLink to="/sign-in"> Connexion </NuxtLink>
           </li>
         </ul>
-      </div>
-      <div class="navbar-end invisible md:visible">
-        <NuxtLink to="/sign-in" class="btn btn-secondary"> Connexion </NuxtLink>
-        <NuxtLink to="/sign-up" class="ml-4 btn btn-primary">
-          Inscription
-        </NuxtLink>
+        <div v-if="!isAuthenticated">
+          <NuxtLink to="/sign-up" class="ml-4 btn btn-primary">
+            Inscription
+          </NuxtLink>
+        </div>
+        <TheUserDropdown v-if="isAuthenticated" />
       </div>
     </div>
   </nav>
 </template>
+
+<script lang="ts">
+import { useAuthStore } from "~/stores/auth";
+import { mapState } from "pinia";
+export default defineComponent({
+  computed: {
+    ...mapState(useAuthStore, ["isAuthenticated", "connectedUser"]),
+  },
+});
+</script>
