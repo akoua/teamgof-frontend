@@ -5,6 +5,10 @@ interface TeamCreate {
   description: string;
   motivation: string;
   departement: string;
+  contactTeam: {
+    email: string;
+    number: string;
+  };
   imageUrl?: string;
   members?: Array<TeamMember>;
   championshipIds: Array<number>;
