@@ -1,3 +1,4 @@
+import { DisciplineChampionship } from "~/models/discipline.model";
 import instance from "./axios";
 import {
   Championship,
@@ -63,6 +64,17 @@ class ChampionshipService {
         throw error;
       });
     return championshipResult;
+  }
+
+  async deleteChampionship(
+    championship: DisciplineChampionship
+  ): Promise<void> {
+    await instance
+      .delete(`/epreuves/delete/${championship.championshipId}`)
+      .catch((error: any) => {
+        console.error(error);
+        throw error;
+      });
   }
 }
 

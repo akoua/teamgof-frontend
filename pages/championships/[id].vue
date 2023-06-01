@@ -1,5 +1,8 @@
 <template>
   <div class="md:px-4 w-full mt-4" v-show="selectedChampionship">
+    <Head>
+      <Title>{{ selectedChampionship?.title }}</Title>
+    </Head>
     <ThePageTitle
       :title="pageTitle"
       sub-title="Donnez vie à vos compétitions sportives"
@@ -25,7 +28,6 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const championshipId = route.params.id;
-
     return {
       championshipId,
     };
@@ -43,11 +45,7 @@ export default defineComponent({
     this.setSelectedChampionship(parseInt(this.championshipId as string, 10));
   },
   watch: {
-    selectedChampionship(newValue) {
-      useHead({
-        title: newValue?.championshipName,
-      });
-    },
+    selectedChampionship(newValue) {},
   },
 });
 </script>

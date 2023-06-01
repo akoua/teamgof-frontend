@@ -92,7 +92,9 @@ export default defineComponent({
           `Êtes-vous sûr de vouloir supprimer la discipline ${discipline.disciplineName} ? Cette action est irréversible et entraînera la suppression permanente de tous les championnats associés.`
         )
       ) {
-        await this.deleteDiscipline(discipline);
+        await this.deleteDiscipline(discipline).then(() => {
+          alert("Suppression effectuée.");
+        });
       }
     },
   },
