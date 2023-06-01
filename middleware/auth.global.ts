@@ -18,9 +18,9 @@ export default defineNuxtRouteMiddleware((to, from) => {
     } else {
       if (to.path === "/disciplines" || to.path === "/championships") {
         const connectedUser = authStore.connectedUser;
-        /**if (connectedUser!.role !== "ADMIN") {
+        if (connectedUser!.role !== "ADMIN") {
           return navigateTo("/");
-        }**/
+        }
       }
     }
   } else if (to.path === "/sign-in" || to.path === "/sign-up") {

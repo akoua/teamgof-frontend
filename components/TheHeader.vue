@@ -26,10 +26,16 @@
             <li class="font-bold uppercase">
               <NuxtLink to="/teams">les équipes</NuxtLink>
             </li>
-            <li class="font-bold uppercase" v-if="isAuthenticated">
+            <li
+              class="font-bold uppercase"
+              v-if="isAuthenticated && connectedUser?.role === 'ADMIN'"
+            >
               <NuxtLink to="/disciplines">disciplines</NuxtLink>
             </li>
-            <li class="font-bold uppercase" v-if="isAuthenticated">
+            <li
+              class="font-bold uppercase"
+              v-if="isAuthenticated && connectedUser?.role === 'ADMIN'"
+            >
               <NuxtLink to="/championships">épreuves</NuxtLink>
             </li>
             <li class="font-bold uppercase" v-if="!isAuthenticated">
@@ -53,10 +59,16 @@
           <li class="font-bold uppercase">
             <NuxtLink to="/teams">les équipes</NuxtLink>
           </li>
-          <li class="font-bold uppercase" v-if="isAuthenticated">
+          <li
+            class="font-bold uppercase"
+            v-if="isAuthenticated && connectedUser?.role === 'ADMIN'"
+          >
             <NuxtLink to="/disciplines">disciplines</NuxtLink>
           </li>
-          <li class="font-bold uppercase" v-if="isAuthenticated">
+          <li
+            class="font-bold uppercase"
+            v-if="isAuthenticated && connectedUser?.role === 'ADMIN'"
+          >
             <NuxtLink to="/championships">épreuves</NuxtLink>
           </li>
           <li class="font-bold uppercase" v-if="!isAuthenticated">
