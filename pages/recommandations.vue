@@ -12,10 +12,16 @@
             <div v-if="allEligibleRecommandations != null" class="grid grid-cols-1 md:grid-cols-4 md:gap-5 gap-y-8 place-items-center w-full">
                <VTeamRecommandation2 :key="team.team.id" v-for="team in allEligibleRecommandations" :team="team" />
             </div>
+            <div v-else>
+              Aucune équipe éligible trouvée
+            </div>
           </template>
           <template v-slot:tab2>
             <div v-if="allOtherRecommandations != null" class="grid grid-cols-1 md:grid-cols-4 md:gap-5 gap-y-8 place-items-center w-full">
                <VTeamRecommandation :key="team.team.id" v-for="team in allOtherRecommandations" :team="team" />
+            </div>
+            <div v-else>
+              Aucune équipe sur condition trouvée
             </div>
           </template>
         </Tab>
