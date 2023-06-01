@@ -103,6 +103,37 @@
           </option>
         </select>
       </div>
+      <div class="mb-4">
+        <div class="flex flex-col md:flex-row w-full">
+          <div class="md:mr-2">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="email"
+              >Email</label
+            >
+            <input
+              v-model="email"
+              id="email"
+              type="email"
+              class="input input-bordered w-full"
+              placeholder="jean.dupont@example.fr"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="number"
+              >Téléphone</label
+            >
+            <input
+              v-model="number"
+              id="number"
+              type="tel"
+              class="input input-bordered w-full"
+            />
+          </div>
+        </div>
+      </div>
       <button
         type="submit"
         class="btn btn-primary mt-5 mx-auto block"
@@ -142,6 +173,8 @@ export default defineComponent({
       title: "",
       description: "",
       location: "",
+      email: "",
+      number: "",
       motivation: MOTIVATION_TYPES.CONVIVIALITY,
       discipline: null as Discipline | null,
       championships: [] as Array<number>,
@@ -174,6 +207,10 @@ export default defineComponent({
           description: this.description,
           motivation: this.getMotivationKey(this.motivation)!,
           departement: this.location,
+          contactTeam: {
+            email: this.email,
+            number: this.number,
+          },
           championshipIds: this.championships,
           members: [],
         };
