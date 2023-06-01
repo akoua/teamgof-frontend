@@ -1,8 +1,7 @@
 <template>
   <div class="flex flex-col items-center justify-center bg-base-300">
-
     <template v-if="showComponent">
-        <AlertSucces :message="successMessage" />
+      <AlertSucces :message="successMessage" />
     </template>
 
     <div class="p-8 bg-secondary rounded-md shadow-md w-full">
@@ -58,9 +57,9 @@
           <button
             @click="handleLogin()"
             class="btn btn-primary justify-center normal-case"
-            :disabled="isLoading"
           >
-            Connexion
+            <Icon name="ri:loader-2-fill" size="24" v-if="isLoading" />
+            <template v-else> Connexion </template>
           </button>
         </div>
 
@@ -84,21 +83,21 @@ export default defineComponent({
       password: "",
       /* Show alert message */
       showComponent: false,
-      successMessage: ''
+      successMessage: "",
     };
   },
   computed: {
     ...mapState(useAuthStore, ["connectedUser", "isLoading", "result"]),
   },
-  mounted(){
+  mounted() {
     // Show success Message
-    if(this.result.success){
-        this.showComponent = true;
-        this.successMessage = this.result.data
-        setTimeout(() => {
-            this.showComponent = false;
-            this.successMessage= '';
-        }, 7000);
+    if (this.result.success) {
+      this.showComponent = true;
+      this.successMessage = this.result.data;
+      setTimeout(() => {
+        this.showComponent = false;
+        this.successMessage = "";
+      }, 7000);
     }
   },
   methods: {
@@ -119,4 +118,3 @@ export default defineComponent({
   },
 });
 </script>
-
