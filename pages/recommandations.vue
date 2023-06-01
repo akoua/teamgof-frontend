@@ -9,14 +9,13 @@
       <div class="flex flex-col md:flex-row">
         <Tab>
           <template v-slot:tab1>
-            <div class="grid grid-cols-1 md:grid-cols-4 md:gap-5 gap-y-8 place-items-center w-full">
-               <VTeamCard :key="team.id" v-for="team in allTeams" :team="team" />
+            <div v-if="allEligibleRecommandations != null" class="grid grid-cols-1 md:grid-cols-4 md:gap-5 gap-y-8 place-items-center w-full">
+               <VTeamRecommandation2 :key="team.team.id" v-for="team in allEligibleRecommandations" :team="team" />
             </div>
           </template>
           <template v-slot:tab2>
-            <div>
-              <h2>Tab 2 Content</h2>
-              <p>This is the content for Tab 2.</p>
+            <div v-if="allOtherRecommandations != null" class="grid grid-cols-1 md:grid-cols-4 md:gap-5 gap-y-8 place-items-center w-full">
+               <VTeamRecommandation :key="team.team.id" v-for="team in allOtherRecommandations" :team="team" />
             </div>
           </template>
         </Tab>
@@ -29,8 +28,8 @@
 
 <script>
 import { defineComponent } from "vue";
-import { useTeamsStore } from "~/stores/teams";
-import { mapState } from "pinia";
+import { useRecommandationsStore } from "@/stores/recommandations";
+import { mapState, mapActions } from "pinia";
 
 export default defineComponent({
   setup() {
@@ -39,7 +38,26 @@ export default defineComponent({
     });
   },
   computed: {
-    ...mapState(useTeamsStore, ["allTeams"]),
+    ...mapState(useRecommandationsStore, ["allRecommandations", "allEligibleRecommandations", "allOtherRecommandations"]),
   },
+  async mounted() {
+    try {
+      await this.fetchRecommandationsEligible();
+      console.log("toto "+this.allEligibleRecommandations);
+    } catch (error) {
+      console.error('Failed to fetch API data:', error);
+    }
+  
+    
+    try {
+      await this.fetchRecommandationsOther();
+    } catch (error) {
+      console.error('Failed to fetch API data:', error);
+    }
+  },
+  methods: {
+    // Get Store methods
+    ...mapActions(useRecommandationsStore, ["fetchAllRecommandations", "fetchRecommandationsEligible", "fetchRecommandationsOther"])
+  }
 });
 </script>
