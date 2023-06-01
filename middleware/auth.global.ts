@@ -8,8 +8,18 @@ export default defineNuxtRouteMiddleware((to, from) => {
   authStore.checkAuth();
   const isAuthenticated = authStore.isAuthenticated;
 
-  if (to.path === "/protected") {
+  if (
+    to.path === "/protected" ||
+    to.path === "/disciplines" ||
+    to.path === "/championships"
+  ) {
     if (!isAuthenticated) {
+      if (to.path === "/disciplines" || to.path === "/championships") {
+        const connectedUser = authStore.connectedUser;
+        if (connectedUser!.role !== "ADMIN") {
+          return navigateTo("/");
+        }
+      }
       return navigateTo("/sign-in");
     }
   } else if (to.path === "/sign-in" || to.path === "/sign-up") {

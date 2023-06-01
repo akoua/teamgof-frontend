@@ -37,10 +37,10 @@
               >
                 <Icon name="fe:eye" />
               </button>
-              <button class="btn btn-success mr-4">
-                <Icon name="fe:pencil" />
-              </button>
-              <button class="btn btn-error">
+              <button
+                class="btn btn-error"
+                @click="handleDeleteChampionship(item.championship)"
+              >
                 <Icon name="fe:trash" />
               </button>
             </td>
@@ -60,6 +60,7 @@ import { mapState, mapActions } from "pinia";
 import { useDisciplinesStore } from "~/stores/disciplines";
 import Discipline from "~/models/discipline.model";
 import { DisciplineChampionship } from "~/models/discipline.model";
+import { useChampionshipsStore } from "~/stores/championships";
 
 export default defineComponent({
   setup() {
@@ -84,14 +85,27 @@ export default defineComponent({
           championshipsAndDisciplines.push({ discipline, championship });
         });
       });
-
       return championshipsAndDisciplines;
     },
   },
   methods: {
     ...mapActions(useDisciplinesStore, ["fetchAllDisciplines"]),
+    ...mapActions(useChampionshipsStore, ["deleteChampionship"]),
     async handleChampionshipClick(id: number): Promise<void> {
       await navigateTo(`/championships/${id}`);
+    },
+    async handleDeleteChampionship(
+      championship: DisciplineChampionship
+    ): Promise<void> {
+      if (
+        confirm(
+          `Êtes-vous sûr de vouloir supprimer ${championship.championshipName} ? Cette action est irréversible.`
+        )
+      ) {
+        await this.deleteChampionship(championship).then(() => {
+          alert("Suppression effectuée.");
+        });
+      }
     },
   },
   mounted() {
