@@ -32,6 +32,16 @@
         <Icon name="fe:location" />
         <span class="text-xs ml-1">{{ team.departement }}</span>
       </div>
+      <div v-if="team.contactTeam">
+        <span class="mr-2" v-if="team.contactTeam.email">
+          <Icon name="fe:mail" />
+          <span class="text-xs ml-1">{{ team.contactTeam.email }}</span>
+        </span>
+        <span v-if="team.contactTeam.number">
+          <Icon name="fe:phone" />
+          <span class="text-xs ml-1">{{ team.contactTeam.number }}</span>
+        </span>
+      </div>
       <div>
         <Icon name="fe:flag" />
         <span class="text-xs ml-1">{{
@@ -44,7 +54,7 @@
         </h2>
         <span>
           <Icon name="fe:users" /><span class="ml-2 text-sm">{{
-            `${team.members?.length}/5`
+            `${team.members?.length}/4`
           }}</span>
         </span>
       </div>

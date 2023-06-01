@@ -1,7 +1,7 @@
 export default interface Discipline {
-  disciplineId: number;
+  disciplineId?: number;
   disciplineName: string;
-  championships: Array<DisciplineChampionship>;
+  championships?: Array<DisciplineChampionship>;
 }
 
 export interface DisciplineChampionship {

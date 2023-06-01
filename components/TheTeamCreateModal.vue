@@ -103,6 +103,37 @@
           </option>
         </select>
       </div>
+      <div class="mb-4">
+        <div class="flex flex-col md:flex-row w-full">
+          <div class="md:mr-2">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="email"
+              >Email</label
+            >
+            <input
+              v-model="email"
+              id="email"
+              type="email"
+              class="input input-bordered w-full"
+              placeholder="jean.dupont@example.fr"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="number"
+              >Téléphone</label
+            >
+            <input
+              v-model="number"
+              id="number"
+              type="tel"
+              class="input input-bordered w-full"
+            />
+          </div>
+        </div>
+      </div>
       <button
         type="submit"
         class="btn btn-primary mt-5 mx-auto block"
@@ -124,9 +155,9 @@ import MOTIVATION_TYPES from "~/constants/motivationTypes";
 import DEPARTEMENTS from "@/constants/departements";
 export default defineComponent({
   async setup() {
-    let modal = ref<InstanceType<typeof VModal>>();
+    const modal = ref<InstanceType<typeof VModal>>();
 
-    let closeChildModal = async () => {
+    const closeChildModal = async () => {
       await modal.value?.closeModal();
     };
     const { $getMotivationKey } = useNuxtApp();
@@ -142,6 +173,8 @@ export default defineComponent({
       title: "",
       description: "",
       location: "",
+      email: "",
+      number: "",
       motivation: MOTIVATION_TYPES.CONVIVIALITY,
       discipline: null as Discipline | null,
       championships: [] as Array<number>,
@@ -157,6 +190,7 @@ export default defineComponent({
   },
   methods: {
     ...mapActions(useTeamsStore, ["createTeam"]),
+    ...mapActions(useDisciplinesStore, ["fetchAllDisciplines"]),
     async submitForm() {
       if (
         !this.title ||
@@ -168,11 +202,15 @@ export default defineComponent({
       ) {
         alert("Veuillez entrer toutes les informations de l'équipe.");
       } else {
-        let team = {
+        const team = {
           name: this.title,
           description: this.description,
           motivation: this.getMotivationKey(this.motivation)!,
           departement: this.location,
+          contactTeam: {
+            email: this.email,
+            number: this.number,
+          },
           championshipIds: this.championships,
           members: [],
         };
@@ -183,12 +221,17 @@ export default defineComponent({
     },
   },
   mounted() {
-    if (this.allDisciplines.length > 0) {
-      this.discipline = this.allDisciplines[0];
-    }
+    this.fetchAllDisciplines();
     if (this.DEPARTEMENTS.length > 0) {
       this.location = this.DEPARTEMENTS[0];
     }
+  },
+  watch: {
+    allDisciplines(oldValue, newValue) {
+      if (newValue.length > 0) {
+        this.discipline = newValue[0];
+      }
+    },
   },
 });
 </script>

@@ -4,32 +4,34 @@ import TeamCreate from "~/models/team.create.model";
 
 class TeamService {
   async createTeam(team: TeamCreate): Promise<Team | null> {
-    var teamResult: Team | null = null;
+    let teamResult: Team | null = null;
     await instance
       .post("/team/create", team)
-      .then((result) => {
+      .then((result: any) => {
         teamResult = result.data.data;
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error(error);
+        throw error;
       });
     return teamResult;
   }
 
   async getTeams(): Promise<Array<Team>> {
-    var teams: Array<Team> = [];
-    let end = 24;
+    let teams: Array<Team> = [];
+    const end = 24;
     await instance
       .get("/team/allTeams", {
         params: {
           end,
         },
       })
-      .then((result) => {
+      .then((result: any) => {
         teams = result.data.data;
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error(error);
+        throw error;
       });
     return teams;
   }

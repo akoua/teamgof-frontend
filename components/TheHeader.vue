@@ -26,11 +26,29 @@
             <li class="font-bold uppercase">
               <NuxtLink to="/teams">les équipes</NuxtLink>
             </li>
-            <li class="font-bold uppercase">
+            <li
+              class="font-bold uppercase"
+              v-if="isAuthenticated && connectedUser?.role === 'ADMIN'"
+            >
+              <NuxtLink to="/disciplines">disciplines</NuxtLink>
+            </li>
+            <li
+              class="font-bold uppercase"
+              v-if="isAuthenticated && connectedUser?.role === 'ADMIN'"
+            >
+              <NuxtLink to="/championships">épreuves</NuxtLink>
+            </li>
+            <li class="font-bold uppercase" v-if="!isAuthenticated">
               <NuxtLink to="/sign-up">inscription</NuxtLink>
             </li>
-            <li class="font-bold uppercase">
+            <li class="font-bold uppercase" v-if="!isAuthenticated">
               <NuxtLink to="/sign-in">connexion</NuxtLink>
+            </li>
+            <li class="font-bold uppercase" v-if="isAuthenticated">
+              <NuxtLink to="#">mon compte</NuxtLink>
+            </li>
+            <li class="font-bold uppercase" v-if="isAuthenticated">
+              <NuxtLink to="#" @click="handleLogout()">déconnexion</NuxtLink>
             </li>
           </ul>
         </div>
@@ -40,6 +58,18 @@
         <ul class="menu menu-horizontal px-1">
           <li class="font-bold uppercase">
             <NuxtLink to="/teams">les équipes</NuxtLink>
+          </li>
+          <li
+            class="font-bold uppercase"
+            v-if="isAuthenticated && connectedUser?.role === 'ADMIN'"
+          >
+            <NuxtLink to="/disciplines">disciplines</NuxtLink>
+          </li>
+          <li
+            class="font-bold uppercase"
+            v-if="isAuthenticated && connectedUser?.role === 'ADMIN'"
+          >
+            <NuxtLink to="/championships">épreuves</NuxtLink>
           </li>
           <li class="font-bold uppercase" v-if="!isAuthenticated">
             <NuxtLink to="/sign-in"> Connexion </NuxtLink>
@@ -58,10 +88,17 @@
 
 <script lang="ts">
 import { useAuthStore } from "~/stores/auth";
-import { mapState } from "pinia";
+import { mapState, mapActions } from "pinia";
 export default defineComponent({
   computed: {
     ...mapState(useAuthStore, ["isAuthenticated", "connectedUser"]),
+  },
+  methods: {
+    ...mapActions(useAuthStore, ["logout"]),
+    async handleLogout() {
+      this.logout();
+      await navigateTo("/");
+    },
   },
 });
 </script>
