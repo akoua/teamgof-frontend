@@ -111,7 +111,7 @@ export default defineComponent({
       } else {
         await this.login(this.email, this.password).finally(async () => {
           if (this.connectedUser) {
-            await navigateTo("/protected");
+            await navigateTo("/recommandations");
           }
         });
       }
